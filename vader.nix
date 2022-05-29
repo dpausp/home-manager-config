@@ -1,0 +1,166 @@
+{ config, pkgs, lib, ... }:
+
+with builtins;
+
+{
+
+  imports = [
+    modules/base-common.nix
+    modules/graphical.nix
+    modules/nixdev.nix
+    modules/pythondev.nix
+  ];
+
+  home.packages = with pkgs; [
+    abcde
+    akonadi
+    amarok
+    chromium
+    clearlooks-phenix
+    digikam
+    dmenu
+    fileschanged
+    fira-code
+    fira-mono
+    gajim
+    geeqie
+    gimp
+    git
+    gitAndTools.git-annex
+    gitAndTools.qgit
+    gtk_engines
+    img2pdf
+    jetbrains.pycharm-community
+    kontact
+    korganizer
+    kubectl
+    kwalletmanager
+    libreoffice
+    navi
+    ngrok
+    okular
+    pandoc
+    pdftk
+    pgcli
+    simple-scan
+    simplescreenrecorder
+    spectacle
+    sqlitebrowser
+    sshfs-fuse
+    sublime4
+    tealdeer
+    thunderbird
+    unison
+    vlc
+    wireshark
+    xclip
+    xdg-user-dirs
+    xsane
+    youtube-dl
+    zeal
+  ];
+
+  home.sessionPath = [ "/home/ts/.local/bin" ];
+
+  manual.html.enable = true;
+  manual.json.enable = true;
+  manual.manpages.enable = true;
+
+  nixpkgs.config = {
+    allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [ "ngrok" "sublimetext4" ];
+  };
+
+  programs.browserpass.enable = true;
+  programs.chromium.enable = true;
+  programs.feh.enable = true;
+  programs.firefox.enable = true;
+
+  programs.git = {
+    ignores = [
+      ".dbeaver-data-sources.xml"
+      ".project"
+      ".pydevproject"
+      ".idea"
+      ".settings"
+      ".vscode"
+      ".runrc"
+    ];
+
+    extraConfig = {
+      safe = { directory = "/home/ts/annex/belakor"; };
+    };
+  };
+
+  programs.gpg.enable = true;
+  programs.keychain.enable = true;
+  programs.mpv.enable = true;
+  programs.noti.enable = true;
+  programs.qutebrowser = {
+    enable = false;
+
+    extraConfig = let
+      passCmd =
+        "spawn --userscript qute-pass-custom -d dmenu -U secret -u '^user: (.+)'";
+    in ''
+      config.bind("aa", "${passCmd}", mode="normal")
+      config.bind("<Ctrl+s>", "${passCmd}", mode="insert")
+
+      c.url.searchengines = {
+          "DEFAULT": "https://www.startpage.com/do/search?query={}",
+          "ddg": "https://duckduckgo.com/?q={}",
+          "py": "https://docs.python.org/3.10/search.html?q={}",
+          "pyl": "https://docs.python.org/3.10/library/{}.html",
+          "pypi": "https://pypi.org/search/?q={}",
+          "sp": "https://www.startpage.com/do/search?query={}",
+          "np": "https://mynixos.com/search?q=package+{}",
+          "n": "https://mynixos.com/search?q={}",
+      }
+
+    '';
+
+    settings = {
+
+      editor.command = ''
+        ["konsole", "-e", "vim", "{file}", "-c", "normal {line}G{column0}l"]'';
+      colors.webpage.bg = "grey";
+      tabs.background = true;
+      tabs.new_position.unrelated = "last";
+
+    };
+  };
+
+  programs.taskwarrior.enable = true;
+
+  programs.texlive.enable = true;
+  programs.topgrade.enable = true;
+  programs.topgrade.settings = {
+    disable = [ "system" "tmux" "vim" ];
+    pre_commands = {
+      "Update home manager inputs" = "nix flake update ~/.config/nixpkgs";
+      "Update pinned stable nixpkgs (n)" =
+        "nix registry pin n github:nixos/nixpkgs/nixos-21.11";
+      "Update pinned unstable nixpkgs (u)" =
+        "nix registry pin u github:nixos/nixpkgs/nixos-unstable";
+    };
+    commands = {
+      "Upgrade profile" = "nix profile upgrade";
+      "Run garbage collection on Nix store" = "sudo nix-collect-garbage";
+      "Remove profile versions older than 30d" =
+        "nix profile wipe-history --older-than 30d";
+    };
+  };
+
+  programs.vscode.enable = false;
+  programs.vscode.package = pkgs.vscodium;
+  programs.zathura.enable = true;
+
+  services.gpg-agent = {
+    enable = true;
+    defaultCacheTtl = 86400;
+  };
+
+  services.lorri.enable = true;
+
+}
+
