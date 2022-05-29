@@ -10,7 +10,6 @@ with builtins;
     file
     ripgrep
     sd
-    thefuck
     tree
     unzip
   ];
@@ -22,6 +21,7 @@ with builtins;
   programs.exa.enable = true;
   programs.git = {
     enable = true;
+    package = pkgs.gitMinimal;
 
     userName = "Tobias dpausp";
     userEmail = "dpausp@posteo.de";
@@ -59,8 +59,6 @@ with builtins;
       pull = { ff = "only"; };
 
       rebase = { instructionFormat = "%at <%ae> %s"; };
-
-      safe = { directory = "/home/ts/annex/belakor"; };
 
       transfer = { fsckObjects = true; };
 

@@ -53,6 +53,22 @@ in
   nixpkgs.overlays = [
     (self: super: {
 
+      vim-myplugin = pkgs.vimUtils.buildVimPlugin { 
+        name = "vim-myplugin";
+        src = ./vim-myplugin;
+      };
+
+      vim-solarized8 = pkgs.vimUtils.buildVimPlugin { 
+        name = "vim-solarized8";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "lifepillar";
+          repo = "vim-solarized8";
+          rev = "9f9b7951975012ce51766356c7c28ba56294f9e8";
+          sha256 = "XejVHWZe83UUBcp+PyesmBTJdpKBaOnQgN5LcJix6eE=";
+        };
+      };
+
       pass-tail = pkgs.stdenv.mkDerivation {
         version = "1.2.0";
         pname = "pass-tail";
@@ -191,13 +207,20 @@ in
     extraConfig = readFile ./vimrc;
     plugins = with pkgs.vimPlugins; [
       neocomplete
+      nginx-vim
       unite
       vim-airline
+      vim-dirdiff
+      vim-jinja
       vim-endwise
       vim-nix
       vim-repeat
+      SyntaxRange
       vim-surround
-    ];
+    ] ++ (with pkgs; [
+      vim-solarized8
+      vim-myplugin
+    ]);
   };
 
   programs.zoxide.enable = true;
