@@ -46,9 +46,11 @@ in
   ];
 
   home.enableNixpkgsReleaseCheck = true;
-  home.sessionVariables = { DELTA_PAGER = "bat"; };
-
-  home.shellAliases = { br = "broot"; };
+  home.sessionVariables = {
+    DELTA_PAGER = "bat";
+    LC_MESSAGES = "C";
+    EDITOR = "vim";
+  };
 
   nixpkgs.overlays = [
     (self: super: {
@@ -224,4 +226,136 @@ in
   };
 
   programs.zoxide.enable = true;
+
+  programs.zsh = {
+
+    oh-my-zsh = {
+      plugins = [ "git" "dirhistory" "vi-mode" ];
+    };
+
+    shellAliases = {
+      # annex
+      x = "git annex";
+      # git
+      gita = "git add";
+      # add changes, ignore whitespace
+      gitaww = "git diff -w --no-color | git apply --cached --ignore-whitespace";
+      gitb = "git bisect";
+      gitc = "git commit";
+      gitd = "git diff";
+      gitdc = "git diff --cached";
+      gitl = "git log";
+      gitls = "git log --pretty=format:'%H %as %s (%an)'";
+      gitp = "git push";
+      gits = "git status";
+
+      # other
+      br = "broot";
+      debug = "zsh .debugrc";
+      dum = "du -m --max-depth=1";
+      fu = "fuck";
+      hm = "home-manager";
+      la = "exa -la";
+      ll = "exa -l";
+      ls = "ls --color";
+      newest_file = "ls -1t | head -n1";
+      pstat = "python -mpstats";
+      py = "python";
+      run = "zsh .runrc";
+      svi = "sudo -E vim";
+      tj = "tar xjf";
+      tz = "tar xzf";
+      vi = "vim";
+    };
+
+    shellGlobalAliases = {
+      F = "| fzf";
+    };
+
+    envExtra = ''
+      setopt no_global_rcs
+      # XXX: skip permission check for testing via another user
+      export ZSH_DISABLE_COMPFIX=true
+    '';
+
+    initExtra = ''
+      # init any-nix-shell manually, would be nice for home manager integration
+      any-nix-shell zsh --info-right | source /dev/stdin
+
+      # Inlined output of `fuck --alias fu`
+      # thefuck recommends evaling the command here but it's fucking slow :)
+
+      fuck () {
+          TF_PYTHONIOENCODING=$PYTHONIOENCODING;
+          export TF_SHELL=zsh;
+          export TF_ALIAS=fuck;
+          TF_SHELL_ALIASES=$(alias);
+          export TF_SHELL_ALIASES;
+          TF_HISTORY="$(fc -ln -10)";
+          export TF_HISTORY;
+          export PYTHONIOENCODING=utf-8;
+          TF_CMD=$(
+              thefuck THEFUCK_ARGUMENT_PLACEHOLDER $@
+          ) && eval $TF_CMD;
+          unset TF_HISTORY;
+          export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
+          test -n "$TF_CMD" && print -s $TF_CMD
+      }
+
+      # disable hosts completion because I use /etc/hosts to block many unwanted sites that would appear as completions without that setting
+      zstyle ':completion:*:*:*' hosts off
+
+      bindkey -M viins '^[.' insert-last-word # Alt-.
+      bindkey -M vicmd '^[.' insert-last-word # Alt-.
+
+      bindkey -M viins '^[^?' backward-kill-word # Alt-Backspace
+
+      source ~/.keychain/`hostname`-sh &> /dev/null
+
+      function git-push-branch {
+        git push -u origin $(git rev-parse --abbrev-ref HEAD)
+      }
+
+      # pretty json output with formatting, highlighting (by jq) and line numbers (by bat)
+      function jat { jq '.' -C < "$1" | bat }
+
+      # interactively find a PID from verbose ps output and print it
+      function fpid { ps aux | fzf -m -q "$@" | awk '{ print $2 }' }
+
+      # nix search with json output and jq filtering, can be piped to jid for interactive filtering
+      function nis() { search=$1; shift; nix search --json $search | jq "$@" }
+
+      rwhich() {
+          WHICH=`which $1`
+          if [[ $? == 0 ]] then
+              readlink -f $WHICH
+          else
+              echo $WHICH
+          fi
+      }
+
+      nish() {
+          nix-shell -p "$@" --run zsh
+      }
+
+      out() {
+          zsh .out-syncrc "$@"
+      }
+
+      in() {
+          zsh .in-syncrc "$@"
+      }
+
+      eval "$(direnv hook zsh)"
+
+      TRAPHUP() {
+            print "Caught HUP, reloading zsh"
+              . ~/.zshrc
+      }
+
+      # run commands via SSH like: RUN="program opt1" zsh
+      # http://superuser.com/a/790681
+      eval "$RUN"
+    '';
+  };
 }

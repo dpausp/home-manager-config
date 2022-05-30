@@ -9,6 +9,7 @@ with builtins;
     modules/graphical.nix
     modules/nixdev.nix
     modules/pythondev.nix
+    modules/zsh.nix
   ];
 
   home.packages = with pkgs; [
@@ -93,7 +94,8 @@ with builtins;
   };
 
   programs.gpg.enable = true;
-  programs.keychain.enable = true;
+  # XXX: needs config
+  programs.keychain.enable = false;
   programs.mpv.enable = true;
   programs.noti.enable = true;
   programs.qutebrowser = {
@@ -154,6 +156,18 @@ with builtins;
   programs.vscode.enable = false;
   programs.vscode.package = pkgs.vscodium;
   programs.zathura.enable = true;
+
+  programs.zsh = {
+    shellAliases = {
+      xs = "git push belakor master";
+    };
+    initExtra = ''
+      function xg {
+        git annex get "$@"
+        git annex copy --to belakor "$@"
+      }
+    '';
+  };
 
   services.gpg-agent = {
     enable = true;
