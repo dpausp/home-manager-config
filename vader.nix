@@ -16,6 +16,7 @@ with builtins;
     abcde
     akonadi
     amarok
+    cachix
     chromium
     clearlooks-phenix
     digikam

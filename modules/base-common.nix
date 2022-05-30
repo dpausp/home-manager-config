@@ -104,6 +104,7 @@ in
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
   programs.exa.enable = true;
+  programs.fzf.enable = true;
   programs.git = {
     delta.enable = true;
     enable = true;
