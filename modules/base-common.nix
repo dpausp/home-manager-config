@@ -359,4 +359,10 @@ in
       eval "$RUN"
     '';
   };
+
+  xdg.configFile."thefuck/settings.py".text = ''
+    # fuck often makes nonsensical recommendations with files from the nix
+    # store instead of just fixing the command (giit tag, for example).
+    priority = {"fix_file": 9999}
+  '';
 }
