@@ -265,6 +265,7 @@ in
       run = "zsh .runrc";
       svi = "sudo -E vim";
       tj = "tar xjf";
+      tl = "tldr";
       tz = "tar xzf";
       vi = "vim";
     };
