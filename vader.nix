@@ -142,7 +142,7 @@ with builtins;
     pre_commands = {
       "Update home manager inputs" = "nix flake update ~/.config/nixpkgs";
       "Update pinned stable nixpkgs (n)" =
-        "nix registry pin n github:nixos/nixpkgs/nixos-21.11";
+        "nix registry pin n github:nixos/nixpkgs/nixos-22.05";
       "Update pinned unstable nixpkgs (u)" =
         "nix registry pin u github:nixos/nixpkgs/nixos-unstable";
     };
