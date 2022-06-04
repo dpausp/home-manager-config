@@ -10,7 +10,7 @@
       # I use systemctl and journalctl all the time, I need convenient aliases :)
       start = "sudo systemctl start";
       stop = "sudo systemctl stop";
-      status = "sudo systemctl status";
+      status = "systemctl status";
       restart = "sudo systemctl restart";
       # >S<ystemctl
       s = "sudo systemctl";
