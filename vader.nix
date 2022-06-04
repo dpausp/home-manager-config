@@ -155,6 +155,11 @@ with builtins;
     shellAliases = {
       xs = "git push belakor master";
     };
+
+    envExtra = ''
+      setopt no_global_rcs
+    '';
+
     initExtra = ''
       function xg {
         git annex get "$@"

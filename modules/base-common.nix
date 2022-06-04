@@ -288,12 +288,6 @@ in
       F = "| fzf";
     };
 
-    envExtra = ''
-      setopt no_global_rcs
-      # XXX: skip permission check for testing via another user
-      export ZSH_DISABLE_COMPFIX=true
-    '';
-
     initExtra = ''
       # init any-nix-shell manually, would be nice for home manager integration
       any-nix-shell zsh --info-right | source /dev/stdin
