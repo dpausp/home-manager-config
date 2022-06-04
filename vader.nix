@@ -77,16 +77,6 @@ with builtins;
   programs.firefox.enable = true;
 
   programs.git = {
-    ignores = [
-      ".dbeaver-data-sources.xml"
-      ".project"
-      ".pydevproject"
-      ".idea"
-      ".settings"
-      ".vscode"
-      ".runrc"
-    ];
-
     extraConfig = {
       safe = { directory = "/home/ts/annex/belakor"; };
     };

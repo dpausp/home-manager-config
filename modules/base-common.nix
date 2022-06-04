@@ -158,6 +158,18 @@ in
       receive = { fsckObjects = true; };
     };
 
+    ignores = [
+      ".dbeaver-data-sources.xml"
+      ".idea"
+      ".in-syncrc"
+      ".out-syncrc"
+      ".project"
+      ".pydevproject"
+      ".runrc"
+      ".settings"
+      ".vscode"
+    ];
+
   };
 
   programs.htop.enable = true;
