@@ -38,7 +38,6 @@ with builtins;
     kubectl
     kwalletmanager
     libreoffice
-    navi
     ngrok
     okular
     pandoc
@@ -50,7 +49,6 @@ with builtins;
     sqlitebrowser
     sshfs-fuse
     sublime4
-    tealdeer
     thunderbird
     unison
     vlc

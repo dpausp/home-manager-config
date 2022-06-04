@@ -163,6 +163,7 @@ in
   programs.htop.enable = true;
   programs.home-manager.enable = true;
   programs.jq.enable = true;
+  programs.navi.enable = true;
   programs.nix-index.enable = true;
 
   programs.password-store = {
@@ -173,6 +174,7 @@ in
   };
 
   programs.starship.enable = true;
+  programs.tealdeer.enable = true;
 
   programs.tmux = {
     baseIndex = 1;
