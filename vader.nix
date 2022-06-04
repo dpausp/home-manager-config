@@ -8,6 +8,7 @@ with builtins;
     modules/base-common.nix
     modules/graphical.nix
     modules/nixdev.nix
+    modules/nixos.nix
     modules/pythondev.nix
     modules/zsh.nix
   ];
@@ -33,6 +34,7 @@ with builtins;
     gtk_engines
     img2pdf
     jetbrains.pycharm-community
+    keychain
     kontact
     korganizer
     kubectl
@@ -126,8 +128,11 @@ with builtins;
   programs.texlive.enable = true;
   programs.topgrade.enable = true;
   programs.topgrade.settings = {
-    disable = [ "system" "tmux" "vim" ];
+    disable = [ "system" "tmux" "vim" "pip3" ];
     pre_commands = {
+      "Update pinned nixpkgs for nixops" = "(cd ~/nixos-machines-home && niv update)";
+      "nixos deploy local system (vader)" =
+        "nix-shell ~/nixos-machines-home/shell.nix --run 'nixops deploy -d home --include vader'";
       "Update home manager inputs" = "nix flake update ~/.config/nixpkgs";
       "Update pinned stable nixpkgs (n)" =
         "nix registry pin n github:nixos/nixpkgs/nixos-22.05";
