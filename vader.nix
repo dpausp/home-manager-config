@@ -80,7 +80,6 @@ in
       builtins.elem (lib.getName pkg) [ "ngrok" "sublimetext4" ];
   };
 
-  programs.browserpass.enable = true;
   programs.chromium.enable = true;
   programs.feh.enable = true;
   programs.firefox.enable = true;
