@@ -1,7 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, nixpkgs, nixpkgs-unstable, lib, ... }:
 
 with builtins;
 
+let
+  mkNixpkgsFlakeShim = flake: pkgs.writeText "nixpkgs-from-flake" ''
+    _ : (builtins.getFlake ${flake}).outputs.legacyPackages.''${builtins.currentSystem}
+  '';
+in
 {
 
   imports = [
@@ -132,7 +137,7 @@ with builtins;
     pre_commands = {
       "Update pinned nixpkgs for nixops" = "(cd ~/nixos-machines-home && niv update)";
       "nixos deploy local system (vader)" =
-        "nix-shell ~/nixos-machines-home/shell.nix --run 'nixops deploy -d home --include vader'";
+        "nix-shell ~/nixos-machines-home --run 'nixops deploy -d home --include vader'";
       "Update home manager inputs" = "nix flake update ~/.config/nixpkgs";
       "Update pinned stable nixpkgs (n)" =
         "nix registry pin n github:nixos/nixpkgs/nixos-22.05";
@@ -158,6 +163,14 @@ with builtins;
 
     envExtra = ''
       setopt no_global_rcs
+      # Sync old-style tools using NIX_PATH with the flake view.
+      # For example, `nix-shell -p python310` will run what
+      # `nix search n#python310` shows.
+      # This references the independently managed `n` and `u` flakes.
+      # For now, I want to keep it separate but it's also possible
+      # to sync the NIX_PATH with the home-manager inputs similar to:
+      # https://gitlab.univ-rouen.fr/sreycoyrehourcq/dotfiles/-/blob/f1f8624c14920407c39bbeeb0e4c0397ea25e980/nixos-config.nix#L71
+      export NIX_PATH="nixpkgs=${mkNixpkgsFlakeShim "n"}:nixpkgs-unstable=${mkNixpkgsFlakeShim "u"}";
     '';
 
     initExtra = ''

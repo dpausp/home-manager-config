@@ -276,13 +276,14 @@ in
       gitls = "git log --pretty=format:'%H %as %s (%an)'";
       gitp = "git push";
       gits = "git status";
-
+      # Nix
+      hm = "home-manager";
+      nis = "nix search u";
       # other
       br = "broot";
       debug = "zsh .debugrc";
       dum = "du -m --max-depth=1";
       fu = "fuck";
-      hm = "home-manager";
       la = "exa -la";
       ll = "exa -l";
       ls = "ls --color";
@@ -346,7 +347,11 @@ in
       function fpid { ps aux | fzf -m -q "$@" | awk '{ print $2 }' }
 
       # nix search with json output and jq filtering, can be piped to jid for interactive filtering
-      function nis() { search=$1; shift; nix search --json $search | jq "$@" }
+      function niss() {
+        search=$1
+        shift
+        nix search u --json $search | jq "$@"
+      }
 
       rwhich() {
           WHICH=`which $1`
