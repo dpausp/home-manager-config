@@ -254,6 +254,9 @@ in
 
   programs.zsh = {
 
+    enableSyntaxHighlighting = true;
+    enableAutosuggestions = true;
+
     oh-my-zsh = {
       plugins = [ "git" "dirhistory" "vi-mode" ];
     };
