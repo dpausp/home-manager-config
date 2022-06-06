@@ -23,6 +23,7 @@ in
     akonadi
     amarok
     cachix
+    cawbird
     chromium
     clearlooks-phenix
     digikam
@@ -45,6 +46,7 @@ in
     kubectl
     kwalletmanager
     libreoffice
+    mimeo
     ngrok
     okular
     pandoc
@@ -63,7 +65,7 @@ in
     xclip
     xdg-user-dirs
     xsane
-    youtube-dl
+    yt-dlp
     zeal
   ];
 
