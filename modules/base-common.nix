@@ -19,6 +19,7 @@ in
     fd
     file
     genpass
+    git-filter-repo
     graphviz
     hexedit
     html-tidy
@@ -35,6 +36,7 @@ in
     ripgrep
     sd
     sharutils
+    shellcheck
     socat
     sqlite
     sshuttle
