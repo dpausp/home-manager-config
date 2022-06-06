@@ -298,6 +298,22 @@ in
       vi = "vim";
     };
 
+    plugins = [
+      {
+        name = "zsh-autoquoter";
+        src = pkgs.fetchFromGitHub {
+          owner = "ianthehenry";
+          repo = "zsh-autoquoter";
+          rev = "819a615fbfd2ad25c5d311080e3a325696b45de7";
+          sha256 = "r0jdo+YFTOejvNMTqzXi5ftcLzDpuKejX0wMFwqKdJY=";
+        };
+      }
+    ];
+
+    sessionVariables = {
+      # zsh-autoquoter
+    };
+
     shellGlobalAliases = {
       F = "| fzf";
     };
@@ -376,14 +392,18 @@ in
 
       eval "$(direnv hook zsh)"
 
-      TRAPHUP() {
-            print "Caught HUP, reloading zsh"
-              . ~/.zshrc
-      }
+      # Broken with home-manager zsh config
+      # "spams grep: command not found"
+      # TRAPHUP() {
+      #   print "Caught HUP, reloading zsh"
+      #   . ~/.zshrc
+      # }
 
       # run commands via SSH like: RUN="program opt1" zsh
       # http://superuser.com/a/790681
       eval "$RUN"
+
+      export ZAQ_PREFIXES=('gitc( [^ ]##)# -[^ -]#m' '[^ ]#pip install( [^ ]##)# -[^ -]#')
     '';
   };
 
