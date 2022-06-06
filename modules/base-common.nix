@@ -187,7 +187,15 @@ in
     settings = { PASSWORD_STORE_DIR = "${home}/.password-store"; };
   };
 
-  programs.starship.enable = true;
+  programs.starship = {
+    enable = true;
+    settings = {
+      status = {
+        disabled = false;
+        format = "$status [$symbol$common_meaning$signal_name]($style) ";
+      };
+    };
+  };
   programs.tealdeer.enable = true;
 
   programs.tmux = {
