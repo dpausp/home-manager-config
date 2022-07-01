@@ -12,6 +12,7 @@ with builtins;
     nix-prefetch-scripts
     nix-update
     nixfmt
+    pre-commit
   ];
 
 }

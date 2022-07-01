@@ -7,6 +7,7 @@ with builtins;
     pkgs.python310
     black
     isort
+    pkgs.pre-commit
     pip
   ];
 
