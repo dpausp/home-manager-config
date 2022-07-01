@@ -2,6 +2,18 @@
 
   programs.zsh = {
 
+    initExtra = ''
+      function git-copy-commit-id {
+        commit=''${1:-HEAD}
+        git rev-parse $commit | tr -d '\n' | xclip
+      }
+
+      function git-copy-commit-msg {
+        commit=''${1:-HEAD}
+        git log --format=%B -n1 $commit | xclip
+      }
+    '';
+
     oh-my-zsh = {
       plugins = [ "systemd" ];
     };
