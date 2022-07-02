@@ -238,6 +238,7 @@ in
       unite
       vim-airline
       vim-dirdiff
+      vim-indent-object
       vim-jinja
       vim-endwise
       vim-nix
