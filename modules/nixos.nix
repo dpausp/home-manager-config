@@ -12,6 +12,10 @@
         commit=''${1:-HEAD}
         git log --format=%B -n1 $commit | xclip
       }
+
+      function hms {
+        (cd ~/.config/nixpkgs && home-manager build && nix profile remove 0 && result/activate)
+      }
     '';
 
     oh-my-zsh = {

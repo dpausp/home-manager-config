@@ -113,7 +113,11 @@ in
         "nix registry pin u github:nixos/nixpkgs/nixos-unstable";
     };
     commands = {
-      "Upgrade profile" = "nix profile upgrade";
+      # topgrade supports home-manager, but home-manager switch is broken with newer Nix versions.
+      # Replacing the current profile entry fails sometimes.
+      # Build the home config, remove the old config, and activate the new one manually instead.
+      "Build home-manager config" =
+        "(cd ~/.config/nixpkgs && home-manager build && nix profile remove 0 && result/activate)";
       "Run garbage collection on Nix store" = "sudo nix-collect-garbage";
       "Remove profile versions older than 30d" =
         "nix profile wipe-history --older-than 30d";
