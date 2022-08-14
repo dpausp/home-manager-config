@@ -53,6 +53,7 @@ in
     pdftk
     pgcli
     pinentry-curses
+    plasma5Packages.bismuth
     simple-scan
     simplescreenrecorder
     spectacle
