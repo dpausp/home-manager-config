@@ -314,10 +314,21 @@ in
           sha256 = "r0jdo+YFTOejvNMTqzXi5ftcLzDpuKejX0wMFwqKdJY=";
         };
       }
+      {
+        # Search the current line instead of history using / and ?
+        name = "zsh-vi-search";
+        file = "src/zsh-vi-search.zsh";
+        src = pkgs.fetchFromGitHub {
+          owner = "soheilpro";
+          repo = "zsh-vi-search";
+          rev = "445c8a27dd2ce315176f18b4c7213c848f215675";
+          sha256 = "ddqUEN6YebrVtT8Ae0ssWt2xlYxRhW5H3uRY0PoksoM=";
+        };
+      }
     ];
 
     sessionVariables = {
-      # zsh-autoquoter
+      VI_MODE_SET_CURSOR = true;
     };
 
     shellGlobalAliases = {
