@@ -306,6 +306,7 @@ in
 
     plugins = [
       {
+        # Auto-quote arguments for commands matching ZAQ_PREFIXES
         name = "zsh-autoquoter";
         src = pkgs.fetchFromGitHub {
           owner = "ianthehenry";
@@ -422,7 +423,12 @@ in
       # http://superuser.com/a/790681
       eval "$RUN"
 
-      export ZAQ_PREFIXES=('gitc( [^ ]##)# -[^ -]#m' '[^ ]#pip install( [^ ]##)# -[^ -]#')
+      export ZAQ_PREFIXES=(
+        '[^ ]#pip install( [^ ]##)# -[^ -]#'
+        'gitc( [^ ]##)# -[^ -]#m'
+        'nix-shell( [^ ]##)# --[^ -]#run'
+        'ssh( [^ ]##)# [^ -][^ ]#'
+      )
     '';
   };
 
