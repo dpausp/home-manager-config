@@ -159,7 +159,7 @@ in
     defaultCacheTtl = 86400;
     pinentryFlavor = "curses";
   };
-
+  services.kdeconnect.enable = true;
   services.lorri.enable = true;
 
 }
