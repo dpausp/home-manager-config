@@ -13,10 +13,12 @@ with builtins;
   ];
 
   home.packages = with pkgs; [
+    age
     cachix
     cacert
     dmenu
     git
+    git-lfs
     gitAndTools.git-annex
     img2pdf
     jetbrains.pycharm-community
