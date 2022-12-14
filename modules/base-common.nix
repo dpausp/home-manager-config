@@ -407,6 +407,8 @@ in
           zsh .in-syncrc "$@"
       }
 
+      ssht () { ssh -t $1 'tmux attach || tmux' }
+
       eval "$(direnv hook zsh)"
 
       # Broken with home-manager zsh config
