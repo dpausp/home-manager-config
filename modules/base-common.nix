@@ -30,9 +30,11 @@ in
     magic-wormhole
     mailutils
     mosh
+    netcat-gnu
     nix-index
     nmap
     remarshal
+    rich-cli
     ripgrep
     sd
     sharutils
