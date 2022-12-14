@@ -20,6 +20,7 @@ in
     file
     genpass
     git-filter-repo
+    gnupg
     graphviz
     hexedit
     html-tidy
@@ -31,8 +32,10 @@ in
     mailutils
     mosh
     netcat-gnu
+    mtr
     nix-index
     nmap
+    pssh
     remarshal
     rich-cli
     ripgrep
