@@ -6,6 +6,7 @@ let
   mkNixpkgsFlakeShim = flake: pkgs.writeText "nixpkgs-from-flake" ''
     _ : (builtins.getFlake "${flake}").outputs.legacyPackages.''${builtins.currentSystem}
   '';
+  pkgs-unstable = pkgs.callPackage nixpkgs-unstable {};
 in
 {
 
@@ -49,6 +50,7 @@ in
     libreoffice
     mimeo
     ngrok
+    pkgs-unstable.nix
     okular
     pandoc
     pdftk
@@ -77,6 +79,8 @@ in
   manual.html.enable = true;
   manual.json.enable = true;
   manual.manpages.enable = true;
+
+  nix.package = pkgs-unstable.nix;
 
   nixpkgs.config = {
     allowUnfreePredicate = pkg:
