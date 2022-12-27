@@ -48,6 +48,12 @@ with builtins;
   programs.zsh = {
 
     initExtra = ''
+      # Nix
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+      # End Nix
+
       function git-copy-commit-msg {
         commit=''${1:-HEAD}
         git log --format=%B -n1 $commit | pbcopy
