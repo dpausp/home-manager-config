@@ -33,6 +33,10 @@ with builtins;
     unison
   ];
 
+  home.sessionVariables = {
+    EDITOR = "/Users/ts/.nix-profile/bin/vim";
+  };
+
   nixpkgs.config = {
     allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [ "ngrok" ];
