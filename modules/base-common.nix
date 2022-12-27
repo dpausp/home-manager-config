@@ -148,9 +148,6 @@ in
     delta.enable = true;
     enable = true;
 
-    userName = "Tobias dpausp";
-    userEmail = "dpausp@posteo.de";
-
     aliases = {
       co = "checkout";
       re = "rebase";

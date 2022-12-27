@@ -23,9 +23,6 @@ with builtins;
     enable = true;
     package = pkgs.gitMinimal;
 
-    userName = "Tobias dpausp";
-    userEmail = "dpausp@posteo.de";
-
     aliases = {
       co = "checkout";
       re = "rebase";

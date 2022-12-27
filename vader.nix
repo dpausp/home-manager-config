@@ -87,6 +87,9 @@ in
   programs.firefox.enable = true;
 
   programs.git = {
+    userName = "Tobias dpausp";
+    userEmail = "dpausp@posteo.de";
+
     extraConfig = {
       safe = { directory = "/home/ts/annex/belakor"; };
     };
