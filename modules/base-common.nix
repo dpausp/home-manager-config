@@ -379,7 +379,7 @@ in
 
     initExtra = ''
       # init any-nix-shell manually, would be nice for home manager integration
-      any-nix-shell zsh --info-right | source /dev/stdin
+      ${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin
 
       # Inlined output of `fuck --alias fu`
       # thefuck recommends evaling the command here but it's fucking slow :)
@@ -443,7 +443,7 @@ in
 
       ssht () { ssh -t $1 'tmux attach || tmux' }
 
-      eval "$(direnv hook zsh)"
+      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
       # Broken with home-manager zsh config
       # "spams grep: command not found"
