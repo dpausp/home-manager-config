@@ -13,6 +13,7 @@ in
     modules/base-common.nix
     modules/graphical.nix
     modules/nixdev.nix
+    modules/nixos-x11.nix
     modules/nixos.nix
     modules/pythondev.nix
     modules/zsh.nix

@@ -1,3 +1,4 @@
+# Platform-independent, graphical
 { pkgs, ... }:
 
 with builtins;
@@ -21,5 +22,4 @@ with builtins;
       vim-surround
     ];
   };
-
 }

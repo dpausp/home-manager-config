@@ -236,12 +236,12 @@ in
     baseIndex = 1;
     clock24 = true;
     enable = true;
-    escapeTime = 1;
     extraConfig = readFile ./tmuxrc;
-    historyLimit = 50000;
     keyMode = "vi";
     newSession = true;
-    terminal = "screen-256color";
+    plugins = with pkgs.tmuxPlugins; [
+      pain-control
+    ];
   };
 
   programs.vim = {
