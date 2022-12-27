@@ -41,6 +41,10 @@ with builtins;
   programs.feh.enable = true;
   programs.zathura.enable = true;
 
+  programs.vim.extraConfig = ''
+    vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
+  '';
+
   programs.zsh = {
 
     initExtra = ''
