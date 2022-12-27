@@ -64,6 +64,9 @@ with builtins;
         git rev-parse $commit | tr -d '\n' | pbcopy
       }
 
+      # Connect with mosh and attach/create tmux session, like `ssht`
+      moft() { mosh $1.fe -- bash -c "tmux attach || tmux" }
+
       unalias ls
       bindkey -M viins '\e\C-h' backward-kill-word
     '';
