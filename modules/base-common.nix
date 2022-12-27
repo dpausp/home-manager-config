@@ -305,6 +305,7 @@ in
 
     oh-my-zsh = {
       plugins = [ "git" "dirhistory" "vi-mode" ];
+      theme = "kphoen";
     };
 
     shellAliases = {
