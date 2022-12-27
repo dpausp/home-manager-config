@@ -85,10 +85,16 @@ in
         name = "find_up";
         text = ''
           curpath=$(pwd)
-          while [[ "$curpath" != "" && ! -e "$curpath/$1" ]]; do
+          file=$1
+          while [[ "$curpath" != "" && ! -e "$curpath/$file" ]]; do
             curpath=''${curpath%/*}
           done
-          echo "$curpath/$1"
+          if [[ -e "$curpath/$file" ]]; then
+            echo "$curpath/$file"
+          else
+            echo "Error: file $file not found in current and parent dirs!" >&2
+            exit 2
+          fi
         '';
       };
 
@@ -251,6 +257,7 @@ in
     keyMode = "vi";
     newSession = true;
     plugins = with pkgs.tmuxPlugins; [
+      fingers
       pain-control
     ];
   };
