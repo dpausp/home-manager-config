@@ -17,6 +17,7 @@ with builtins;
     cachix
     cacert
     dmenu
+    gawk
     git
     git-lfs
     gitAndTools.git-annex
