@@ -224,6 +224,17 @@ in
   programs.starship = {
     enable = true;
     settings = {
+      directory = {
+        truncation_length = 10;
+      };
+      nix_shell = {
+        pure_msg ="pure";
+        impure_msg ="";
+      };
+      shell = {
+        disabled = false;
+        style = "yellow";
+      };
       status = {
         disabled = false;
         format = "$status [$symbol$common_meaning$signal_name]($style) ";
