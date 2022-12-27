@@ -18,6 +18,7 @@ in
     entr
     fd
     file
+    findUpCmd
     genpass
     git-filter-repo
     gnupg
@@ -25,6 +26,7 @@ in
     hexedit
     html-tidy
     httpie
+    inCmd
     inetutils
     ipcalc
     jid
@@ -35,6 +37,7 @@ in
     mtr
     nix-index
     nmap
+    outCmd
     pssh
     remarshal
     rich-cli
@@ -76,6 +79,35 @@ in
           rev = "9f9b7951975012ce51766356c7c28ba56294f9e8";
           sha256 = "XejVHWZe83UUBcp+PyesmBTJdpKBaOnQgN5LcJix6eE=";
         };
+      };
+
+      findUpCmd = pkgs.writeShellApplication {
+        name = "find_up";
+        text = ''
+          curpath=$(pwd)
+          while [[ "$curpath" != "" && ! -e "$curpath/$1" ]]; do
+            curpath=''${curpath%/*}
+          done
+          echo "$curpath/$1"
+        '';
+      };
+
+      inCmd = pkgs.writeShellApplication {
+        name = "in";
+        text = ''
+          rcfile=$(find_up .in-syncrc)
+          echo "Executing $rcfile"
+          sh "$rcfile" "$@"
+        '';
+      };
+
+      outCmd = pkgs.writeShellApplication {
+        name = "out";
+        text = ''
+          rcfile=$(find_up .out-syncrc)
+          echo "Executing $rcfile"
+          sh "$rcfile" "$@"
+        '';
       };
 
       pass-tail = pkgs.stdenv.mkDerivation {
@@ -398,14 +430,6 @@ in
 
       nish() {
           nix-shell -p "$@" --run zsh
-      }
-
-      out() {
-          zsh .out-syncrc "$@"
-      }
-
-      in() {
-          zsh .in-syncrc "$@"
       }
 
       ssht () { ssh -t $1 'tmux attach || tmux' }
