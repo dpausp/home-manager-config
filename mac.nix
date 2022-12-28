@@ -64,6 +64,11 @@ with builtins;
   '';
 
   programs.zsh = {
+    cdpath = [
+      "/Users/ts/git"
+      "/Users/ts/machines"
+      "/Users/ts/venvs"
+    ];
     # The Nix init stuff should run as early as possible.
     # Doesn't really matter for the rest.
     initExtra = lib.mkBefore ''

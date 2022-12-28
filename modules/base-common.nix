@@ -327,6 +327,7 @@ in
 
   programs.zsh = {
 
+    autocd = true;
     enableSyntaxHighlighting = true;
     enableAutosuggestions = true;
 
