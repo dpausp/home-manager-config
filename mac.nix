@@ -3,7 +3,6 @@
 with builtins;
 
 {
-
   imports = [
     modules/base-common.nix
     modules/graphical.nix
@@ -24,6 +23,7 @@ with builtins;
     img2pdf
     jetbrains.pycharm-community
     kubectl
+    moft
     ngrok
     nix
     pandoc
@@ -35,6 +35,7 @@ with builtins;
 
   home.sessionVariables = {
     EDITOR = "/Users/ts/.nix-profile/bin/vim";
+    CLIPBOARD_COPY_CMD = "pbcopy";
   };
 
   nixpkgs.config = {
@@ -42,6 +43,19 @@ with builtins;
       builtins.elem (lib.getName pkg) [ "ngrok" ];
   };
 
+  nixpkgs.overlays = [
+    (self: super: {
+
+      moft = pkgs.writeShellApplication {
+        name = "moft";
+        # Connect with mosh and attach/create tmux session, like `ssht`
+        text = ''
+          mosh "$1".fe -- bash -c "tmux attach || tmux"
+        '';
+      };
+
+    })
+  ];
   programs.feh.enable = true;
   programs.zathura.enable = true;
 
@@ -50,26 +64,14 @@ with builtins;
   '';
 
   programs.zsh = {
-
-    initExtra = ''
+    # The Nix init stuff should run as early as possible.
+    # Doesn't really matter for the rest.
+    initExtra = lib.mkBefore ''
       # Nix
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
       # End Nix
-
-      function git-copy-commit-msg {
-        commit=''${1:-HEAD}
-        git log --format=%B -n1 $commit | pbcopy
-      }
-
-      function git-copy-commit-id {
-        commit=''${1:-HEAD}
-        git rev-parse $commit | tr -d '\n' | pbcopy
-      }
-
-      # Connect with mosh and attach/create tmux session, like `ssht`
-      moft() { mosh $1.fe -- bash -c "tmux attach || tmux" }
 
       unalias ls
       bindkey -M viins '\e\C-h' backward-kill-word

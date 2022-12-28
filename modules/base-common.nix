@@ -21,6 +21,7 @@ in
     findUpCmd
     genpass
     git-filter-repo
+    git-push-branch
     gnupg
     graphviz
     hexedit
@@ -42,6 +43,7 @@ in
     remarshal
     rich-cli
     ripgrep
+    rwhich
     sd
     sharutils
     shellcheck
@@ -65,22 +67,6 @@ in
   nixpkgs.overlays = [
     (self: super: {
 
-      vim-myplugin = pkgs.vimUtils.buildVimPlugin { 
-        name = "vim-myplugin";
-        src = ./vim-myplugin;
-      };
-
-      vim-solarized8 = pkgs.vimUtils.buildVimPlugin { 
-        name = "vim-solarized8";
-
-        src = pkgs.fetchFromGitHub {
-          owner = "lifepillar";
-          repo = "vim-solarized8";
-          rev = "9f9b7951975012ce51766356c7c28ba56294f9e8";
-          sha256 = "XejVHWZe83UUBcp+PyesmBTJdpKBaOnQgN5LcJix6eE=";
-        };
-      };
-
       findUpCmd = pkgs.writeShellApplication {
         name = "find_up";
         text = ''
@@ -95,6 +81,23 @@ in
             echo "Error: file $file not found in current and parent dirs!" >&2
             exit 2
           fi
+        '';
+      };
+
+      genpass = pkgs.writeShellApplication {
+        name = "genpass";
+        runtimeInputs = with pkgs; [ diceware ];
+        text = ''
+          for _ in {1..4}; do
+            diceware -n8 "$@"
+          done
+        '';
+      };
+
+      git-push-branch = pkgs.writeShellApplication {
+        name = "git-push-branch";
+        text = ''
+          git push -u origin "$(git rev-parse --abbrev-ref HEAD)"
         '';
       };
 
@@ -132,14 +135,31 @@ in
         };
       };
 
-      genpass = pkgs.writeShellApplication {
-        name = "genpass";
-        runtimeInputs = with pkgs; [ diceware ];
+      rwhich = pkgs.writeShellApplication {
+        name = "rwhich";
         text = ''
-          for _ in {1..4}; do
-            diceware -n8 "$@"
-          done
+          if which "$1"; then
+              readlink -f "$WHICH"
+          else
+              echo "$WHICH"
+          fi
         '';
+      };
+
+      vim-myplugin = pkgs.vimUtils.buildVimPlugin {
+        name = "vim-myplugin";
+        src = ./vim-myplugin;
+      };
+
+      vim-solarized8 = pkgs.vimUtils.buildVimPlugin {
+        name = "vim-solarized8";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "lifepillar";
+          repo = "vim-solarized8";
+          rev = "9f9b7951975012ce51766356c7c28ba56294f9e8";
+          sha256 = "XejVHWZe83UUBcp+PyesmBTJdpKBaOnQgN5LcJix6eE=";
+        };
       };
 
     })
@@ -418,10 +438,6 @@ in
 
       source ~/.keychain/`hostname`-sh &> /dev/null
 
-      function git-push-branch {
-        git push -u origin $(git rev-parse --abbrev-ref HEAD)
-      }
-
       # pretty json output with formatting, highlighting (by jq) and line numbers (by bat)
       function jat { jq '.' -C < "$1" | bat }
 
@@ -429,26 +445,15 @@ in
       function fpid { ps aux | fzf -m -q "$@" | awk '{ print $2 }' }
 
       # nix search with json output and jq filtering, can be piped to jid for interactive filtering
-      function niss() {
+      function niss {
         search=$1
         shift
         nix search u --json $search | jq "$@"
       }
 
-      rwhich() {
-          WHICH=`which $1`
-          if [[ $? == 0 ]] then
-              readlink -f $WHICH
-          else
-              echo $WHICH
-          fi
-      }
+      function nish { nix-shell -p "$@" --run zsh }
 
-      nish() {
-          nix-shell -p "$@" --run zsh
-      }
-
-      ssht () { ssh -t $1 'tmux attach || tmux' }
+      function ssht { ssh -t $1 'tmux attach || tmux' }
 
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
 
