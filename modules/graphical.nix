@@ -31,6 +31,10 @@ with builtins;
     })
   ];
 
+  programs.tmux.plugins = with pkgs.tmuxPlugins; [
+    open
+  ];
+
   programs.vim = {
     packageConfigurable = pkgs.vim_configurable;
     plugins = with pkgs.vimPlugins; [

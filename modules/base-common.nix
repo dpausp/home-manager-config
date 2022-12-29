@@ -277,8 +277,14 @@ in
     keyMode = "vi";
     newSession = true;
     plugins = with pkgs.tmuxPlugins; [
-      fingers
+      extrakto
+      fpp
+      logging
       pain-control
+      power-theme
+      resurrect
+      tmux-fzf
+      tmux-thumbs
     ];
   };
 

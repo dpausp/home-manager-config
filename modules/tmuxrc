@@ -8,7 +8,6 @@ set -g status-style fg=white,bg=black
 setw -g window-status-current-style fg=white,bold,bg=black
 set -g status-left-length 100
 set -g status-left '[#S] #(whoami)@#H'
-set -g status-right '#(cut -d " " -f 1-4 /proc/loadavg) %H:%M'
 set -g status-interval 5
 set -g status-justify centre
 
@@ -46,3 +45,10 @@ bind -T off F12 \
   display 'outer' \;\
   refresh-client -S
 
+# Plugin settings
+
+set -g @resurrect-processes 'blackd entr psql watch'
+
+set -g @thumbs-contrast 1
+set -g @thumbs-reverse enabled
+set -g @thumbs-unique enabled

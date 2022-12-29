@@ -4,6 +4,11 @@
     CLIPBOARD_COPY_CMD = "xclip";
   };
 
+  programs.tmux = {
+    extraConfig = ''
+      set -g status-right '#(cut -d " " -f 1-4 /proc/loadavg) %H:%M'
+    '';
+  };
 
   programs.zsh = {
 

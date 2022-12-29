@@ -56,12 +56,18 @@ with builtins;
 
     })
   ];
+
   programs.feh.enable = true;
-  programs.zathura.enable = true;
+
+  programs.tmux.extraConfig = ''
+    set -g status-right '%H:%M'
+  '';
 
   programs.vim.extraConfig = ''
     vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
   '';
+
+  programs.zathura.enable = true;
 
   programs.zsh = {
     cdpath = [
