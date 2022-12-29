@@ -38,9 +38,9 @@ with builtins;
   programs.vim = {
     packageConfigurable = pkgs.vim_configurable;
     plugins = with pkgs.vimPlugins; [
+      ale
       nerdtree
       statix
-      syntastic
       unite
       vim-airline
       vim-dirdiff

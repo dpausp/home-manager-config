@@ -151,17 +151,6 @@ in
         src = ./vim-myplugin;
       };
 
-      vim-solarized8 = pkgs.vimUtils.buildVimPlugin {
-        name = "vim-solarized8";
-
-        src = pkgs.fetchFromGitHub {
-          owner = "lifepillar";
-          repo = "vim-solarized8";
-          rev = "9f9b7951975012ce51766356c7c28ba56294f9e8";
-          sha256 = "XejVHWZe83UUBcp+PyesmBTJdpKBaOnQgN5LcJix6eE=";
-        };
-      };
-
     })
   ];
   programs.bat.enable = true;
@@ -290,24 +279,11 @@ in
 
   programs.vim = {
     enable = true;
-    packageConfigurable = lib.mkDefault (pkgs.vimUtils.makeCustomizable
-      (pkgs.vim_configurable.override {
-        config = {
-          netbeans = false;
-          vim = { gui = "no"; };
-        };
-        libX11 = null;
-        libXext = null;
-        libSM = null;
-        libXpm = null;
-        libXt = null;
-        libXaw = null;
-        libXau = null;
-        libXmu = null;
-        libICE = null;
-        gtk2-x11 = null;
-        gtk3-x11 = null;
-      }));
+    packageConfigurable = lib.mkDefault (pkgs.vim_configurable.override {
+      config = {
+        vim = { gui = "none"; };
+      };
+    });
 
     extraConfig = readFile ./vimrc;
     plugins = with pkgs.vimPlugins; [
@@ -321,10 +297,10 @@ in
       vim-endwise
       vim-nix
       vim-repeat
+      vim-sensible
       SyntaxRange
       vim-surround
     ] ++ (with pkgs; [
-      vim-solarized8
       vim-myplugin
     ]);
   };
