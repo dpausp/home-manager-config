@@ -338,7 +338,7 @@ in
     enableAutosuggestions = true;
 
     oh-my-zsh = {
-      plugins = [ "git" "dirhistory" "fzf" "vi-mode" ];
+      plugins = [ "git" "dirhistory" "vi-mode" ];
       theme = "kphoen";
     };
 
