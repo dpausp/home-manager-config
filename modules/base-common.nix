@@ -384,6 +384,7 @@ in
       gp = "git push";
       # Nix
       hm = "home-manager";
+      hms = "home-manager switch";
       nis = "nix search u";
       # other
       br = "broot";

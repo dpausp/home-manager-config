@@ -1,25 +1,8 @@
 { config, pkgs, lib, ... }: {
 
-  home.sessionVariables = {
-    CLIPBOARD_COPY_CMD = "xclip";
-  };
-
-  programs.tmux = {
-    extraConfig = ''
-      set -g status-right '#(cut -d " " -f 1-4 /proc/loadavg) %H:%M'
-    '';
-  };
-
-  programs.zsh = {
-
-    initExtra = ''
-      function hms {
-        (cd ~/.config/nixpkgs && home-manager build && nix profile remove 0 && result/activate)
-      }
-    '';
-
-    oh-my-zsh = {
-      plugins = [ "systemd" ];
+  home = {
+    sessionVariables = {
+      CLIPBOARD_COPY_CMD = "xclip";
     };
 
     shellAliases = {
@@ -35,14 +18,30 @@
       o = "journalctl";
       j = "journalctl";
       us = "systemctl --user";
-
       # other
       m = "mount";
       shm = "cd /dev/shm";
     };
+  };
+
+  programs.tmux = {
+    extraConfig = ''
+      set -g status-right '#(cut -d " " -f 1-4 /proc/loadavg) %H:%M'
+    '';
+  };
+
+  programs.zsh = {
 
     shellGlobalAliases = {
       X = "| tr -d '\n' | xclip";
+      B = "| bat";
+      F = "| fzf";
+      V = "| vimr -";
+      # From oh-my-zsh common-aliases
+      G = "| grep";
+      L = "| less";
+      NE = "2> /dev/null";
+      NUL = "> /dev/null 2>&1";
     };
 
   };
