@@ -394,6 +394,8 @@ in
     ];
 
     sessionVariables = {
+      BAT_PAGER = "less -R";
+      TMUX_FZF_OPTIONS = "-p -w 95% -h 38% -m";
       VI_MODE_SET_CURSOR = true;
     };
 
