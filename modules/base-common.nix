@@ -425,6 +425,7 @@ in
       BAT_PAGER = "less -R";
       TMUX_FZF_OPTIONS = "-p -w 95% -h 38% -m";
       VI_MODE_SET_CURSOR = true;
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,underline";
     };
 
     shellGlobalAliases = {
@@ -461,9 +462,13 @@ in
       bindkey -M viins '^[.' insert-last-word # Alt-.
       bindkey -M vicmd '^[.' insert-last-word # Alt-.
 
-      bindkey -M viins '^[^?' backward-kill-word # Alt-Backspace
+      # Alt-Backspace
+      bindkey -M viins '^[^?' backward-kill-word
+      bindkey -M viins '\e\C-h' backward-kill-word
 
       source ~/.keychain/`hostname`-sh &> /dev/null
+
+      function dcd { cd "$(nix path-info "$1")" }
 
       # pretty json output with formatting, highlighting (by jq) and line numbers (by bat)
       function jat { jq '.' -C < "$1" | bat }
