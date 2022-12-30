@@ -158,8 +158,14 @@ in
   programs.broot.enable = true;
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
-  programs.exa.enable = true;
+
+  programs.exa = {
+    enable = true;
+    enableAliases = true;
+  };
+
   programs.fzf.enable = true;
+
   programs.git = {
     delta.enable = true;
     enable = true;
@@ -227,6 +233,15 @@ in
   programs.htop.enable = true;
   programs.home-manager.enable = true;
   programs.jq.enable = true;
+
+  programs.less = {
+    enable = true;
+    keys = ''
+      #env
+      LESS = -j10 -R
+    '';
+  };
+
   programs.navi.enable = true;
   programs.nix-index.enable = true;
 
@@ -257,6 +272,7 @@ in
       };
     };
   };
+
   programs.tealdeer.enable = true;
 
   programs.tmux = {
@@ -342,9 +358,6 @@ in
       debug = "zsh .debugrc";
       dum = "du -m --max-depth=1";
       fu = "fuck";
-      la = "exa -la";
-      ll = "exa -l";
-      ls = "ls --color";
       newest_file = "ls -1t | head -n1";
       pstat = "python -mpstats";
       py = "python";
