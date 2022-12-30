@@ -19,6 +19,7 @@ in
     fd
     file
     findUpCmd
+    fpp
     genpass
     git-filter-repo
     git-push-branch
