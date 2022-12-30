@@ -90,6 +90,7 @@ with builtins;
 
     shellAliases = {
       fc-copy-nixpkgs-version = "jq -r '.nixpkgs.rev' < versions.json | tr -d '\n' | pbcopy";
+      ot = "open -t";
     };
 
     shellGlobalAliases = {
