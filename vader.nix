@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, nixpkgs-unstable, lib, ... }:
+{ config, pkgs, pkgs-unstable, lib, ... }:
 
 with builtins;
 
@@ -6,7 +6,6 @@ let
   mkNixpkgsFlakeShim = flake: pkgs.writeText "nixpkgs-from-flake" ''
     _ : (builtins.getFlake "${flake}").outputs.legacyPackages.''${builtins.currentSystem}
   '';
-  pkgs-unstable = pkgs.callPackage nixpkgs-unstable {};
 in
 {
 

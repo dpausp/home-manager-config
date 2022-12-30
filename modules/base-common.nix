@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 with builtins;
 
@@ -67,6 +67,29 @@ in
 
   nixpkgs.overlays = [
     (self: super: {
+      inherit (pkgs-unstable) delta;
+
+      # Update to a version that has tmux_osc52 support and remove xclip dep.
+      tmuxPlugins = super.tmuxPlugins // {
+        extrakto = super.tmuxPlugins.extrakto.overrideAttrs(old: {
+          name = "tmuxplugin-extrakto-unstable-2022-11-03";
+          version = "unstable-2022-11-03";
+          src = pkgs.fetchFromGitHub {
+            owner = "laktak";
+            repo = "extrakto";
+            rev = "4179acea28f69853fda9ab15c7564cd73757856c";
+            sha256 = "BfQkVxVwT+hjb2T13H1EPKXS+W5FIJyQkR+Iz9079FU=";
+          };
+          postInstall = ''
+          for f in extrakto.sh open.sh; do
+            wrapProgram $target/scripts/$f \
+              --prefix PATH : ${with pkgs; lib.makeBinPath (
+              [ pkgs.fzf pkgs.python3 ]
+              )}
+          done
+          '';
+        });
+      };
 
       findUpCmd = pkgs.writeShellApplication {
         name = "find_up";
