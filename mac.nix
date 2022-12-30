@@ -34,7 +34,7 @@ with builtins;
   ];
 
   home.sessionVariables = {
-    EDITOR = "/Users/ts/.nix-profile/bin/vim";
+    EDITOR = "/Users/ts/bin/subl -nw";
     CLIPBOARD_COPY_CMD = "pbcopy";
   };
 
