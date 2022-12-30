@@ -379,6 +379,9 @@ in
       gitls = "git log --pretty=format:'%H %as %s (%an)'";
       gitp = "git push";
       gits = "git status";
+      gl = "git pull";
+      gf = "git fetch";
+      gp = "git push";
       # Nix
       hm = "home-manager";
       nis = "nix search u";
