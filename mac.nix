@@ -61,6 +61,7 @@ with builtins;
 
   programs.tmux.extraConfig = ''
     set -g status-right '%H:%M'
+    set -g default-command "/Users/ts/.nix-profile/bin/zsh"
   '';
 
   programs.vim.extraConfig = ''
