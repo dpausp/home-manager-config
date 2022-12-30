@@ -52,6 +52,7 @@ in
     sqlite
     sshuttle
     thefuck
+    thumbs
     tree
     unzip
     wrk
