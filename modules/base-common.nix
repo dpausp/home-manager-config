@@ -355,7 +355,11 @@ in
     enableAutosuggestions = true;
 
     oh-my-zsh = {
-      plugins = [ "git" "dirhistory" "vi-mode" ];
+      plugins = [
+        "dirhistory"
+        "urltools"
+        "vi-mode"
+      ];
       theme = "kphoen";
     };
 
