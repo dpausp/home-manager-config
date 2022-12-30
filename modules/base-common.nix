@@ -39,6 +39,7 @@ in
     nix-index
     nmap
     outCmd
+    pipe-rename
     pssh
     remarshal
     rich-cli
