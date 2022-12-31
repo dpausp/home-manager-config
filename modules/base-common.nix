@@ -365,7 +365,7 @@ in
 
     extraConfig = readFile ./vimrc;
     plugins = with pkgs.vimPlugins; [
-      neocomplete
+      ale
       nginx-vim
       unite
       vim-airline
