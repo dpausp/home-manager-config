@@ -12,9 +12,11 @@ in
     apg
     bc
     cloc
+    dbat
     delta
     dhall
     diceware
+    dvimr
     entr
     fd
     file
@@ -56,6 +58,7 @@ in
     thumbs
     tree
     unzip
+    vimr
     wrk
     zip
   ];
@@ -91,6 +94,20 @@ in
           done
           '';
         });
+
+      dbat = pkgs.writeShellApplication {
+        name = "dbat";
+        text = ''
+          bat "$(nix path-info "$@")"
+        '';
+      };
+
+      dvimr = pkgs.writeShellApplication {
+        name = "dvimr";
+        text = ''
+          if [[ $# -eq 0 ]]; then exit 1; fi
+          vr "$(nix path-info "$@")"
+        '';
       };
 
       findUpCmd = pkgs.writeShellApplication {
@@ -177,6 +194,12 @@ in
         src = ./vim-myplugin;
       };
 
+      vimr = pkgs.writeShellApplication {
+        name = "vimr";
+        text = ''
+          vim -R -c 'map q :q!<CR>' "$@"
+        '';
+      };
     })
   ];
   programs.bat.enable = true;
@@ -388,8 +411,10 @@ in
       nis = "nix search u";
       # other
       br = "broot";
+      db = "dbat";
       debug = "zsh .debugrc";
       dum = "du -m --max-depth=1";
+      dv = "dvimr";
       fu = "fuck";
       newest_file = "ls -1t | head -n1";
       pstat = "python -mpstats";
@@ -400,6 +425,7 @@ in
       tl = "tldr";
       tz = "tar xzf";
       vi = "vim";
+      vir = "vimr";
     };
 
     plugins = [
