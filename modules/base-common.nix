@@ -401,13 +401,24 @@ in
       ];
     };
 
-    shellAliases = {
-      # annex
-      x = "git annex";
+    shellAliases = rec {
       # git
+      g = "git status";
+      ga = "git add";
+      gap = "git add -p";
+      gc = "git commit";
+      gca = "git commit -a";
+      gcam = "git commit --amend";
+      gcan = "git commit --amend --no-edit";
+      gcana = "git commit --amend --no-edit -a";
+      gco = "git checkout";
+      gf = "git fetch";
+      gg = "git log";
+      ggs = gitls;
+      gi = "git diff";
+      gica = "git diff --cached";
       gita = "git add";
-      # add changes, ignore whitespace
-      gitaww = "git diff -w --no-color | git apply --cached --ignore-whitespace";
+      gitaww = "git diff -w --no-color | git apply --cached --ignore-whitespace"; # add changes, ignore whitespace
       gitb = "git bisect";
       gitc = "git commit";
       gitd = "git diff";
@@ -417,11 +428,12 @@ in
       gitp = "git push";
       gits = "git status";
       gl = "git pull";
-      gf = "git fetch";
       gp = "git push";
+      x = "git annex";
       # Nix
       hm = "home-manager";
       hms = "home-manager switch";
+      nib = "nix-build";
       nis = "nix search u";
       # other
       br = "broot";
