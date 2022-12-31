@@ -41,6 +41,7 @@ in
     mtr
     nix-index
     nmap
+    nvd
     outCmd
     pipe-rename
     pssh
