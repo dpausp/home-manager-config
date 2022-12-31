@@ -487,7 +487,14 @@ in
     };
 
     shellGlobalAliases = {
+      B = "| bat";
       F = "| fzf";
+      V = "| vimr -";
+      # From oh-my-zsh common-aliases
+      G = "| grep";
+      L = "| less";
+      NE = "2> /dev/null";
+      NUL = "> /dev/null 2>&1";
     };
 
     initExtra = ''
