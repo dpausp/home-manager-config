@@ -393,11 +393,12 @@ in
 
     oh-my-zsh = {
       plugins = [
+        "colored-man-pages"
         "dirhistory"
+        "httpie"
         "urltools"
         "vi-mode"
       ];
-      theme = "kphoen";
     };
 
     shellAliases = {
