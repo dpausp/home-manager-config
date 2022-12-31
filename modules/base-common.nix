@@ -77,7 +77,7 @@ in
 
       # Update to a version that has tmux_osc52 support and remove xclip dep.
       tmuxPlugins = super.tmuxPlugins // {
-        extrakto = super.tmuxPlugins.extrakto.overrideAttrs(old: {
+        extrakto = super.tmuxPlugins.extrakto.overrideAttrs (old: {
           name = "tmuxplugin-extrakto-unstable-2022-11-03";
           version = "unstable-2022-11-03";
           src = pkgs.fetchFromGitHub {
@@ -95,6 +95,18 @@ in
           done
           '';
         });
+
+        sensible = super.tmuxPlugins.sensible.overrideAttrs (old: {
+          name = "tmuxplugin-sensible-unstable-2022-08-14";
+          version = "unstable-2022-08-14";
+          src = pkgs.fetchFromGitHub {
+            owner = "tmux-plugins";
+            repo = "tmux-sensible";
+            rev = "25cb91f42d020f675bb0a2ce3fbd3a5d96119efa";
+            sha256 = "sw9g1Yzmv2fdZFLJSGhx1tatQ+TtjDYNZI5uny0+5Hg=";
+          };
+        });
+      };
 
       dbat = pkgs.writeShellApplication {
         name = "dbat";
@@ -422,6 +434,7 @@ in
       py = "python";
       run = "zsh .runrc";
       svi = "sudo -E vim";
+      ta = "tmux attach";
       tj = "tar xjf";
       tl = "tldr";
       tz = "tar xzf";
