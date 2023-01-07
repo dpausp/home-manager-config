@@ -336,7 +336,8 @@ in
       };
       status = {
         disabled = false;
-        format = "$status [$symbol$common_meaning$signal_name]($style) ";
+        map_symbol = true;
+        format = "[$status $common_meaning$signal_name]($style) ";
       };
     };
   };
