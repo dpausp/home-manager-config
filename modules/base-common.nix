@@ -414,14 +414,16 @@ in
       g = "git status";
       ga = "git add";
       gap = "git add -p";
+      gb = "git branch";
       gc = "git commit";
       gca = "git commit -a";
       gcam = "git commit --amend";
       gcan = "git commit --amend --no-edit";
       gcana = "git commit --amend --no-edit -a";
       gco = "git checkout";
+      gcob = "git checkout -b";
+      gcm = "git commit -m";
       gf = "git fetch";
-      gg = "git log";
       ggs = gitls;
       gi = "git diff";
       gica = "git diff --cached";
@@ -436,7 +438,14 @@ in
       gitp = "git push";
       gits = "git status";
       gl = "git pull";
+      go = "git log";
       gp = "git push";
+      grbc = "git rebase -econtinue";
+      grbi = "git rebase -i";
+      gsh = "git show";
+      gsta = "git stash push";
+      gstp = "git stash pop";
+      gsts = "git stash show --text";
       x = "git annex";
       # Nix
       hm = "home-manager";
@@ -576,7 +585,8 @@ in
 
       export ZAQ_PREFIXES=(
         '[^ ]#pip install( [^ ]##)# -[^ -]#'
-        'gitc( [^ ]##)# -[^ -]#m'
+        'gc( [^ ]##)# -[^ -]#m'
+        'gcm'
         'nix-shell( [^ ]##)# --[^ -]#run'
         'ssh( [^ ]##)# [^ -][^ ]#'
       )
