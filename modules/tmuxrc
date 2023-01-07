@@ -47,7 +47,7 @@ bind -T off F12 \
 
 # Plugin settings
 
-set -g @resurrect-processes 'blackd entr psql watch'
+set -g @resurrect-processes 'atop broot blackd journalctl glances watch'
 
 set -g @thumbs-contrast 1
 set -g @thumbs-reverse enabled
