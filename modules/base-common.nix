@@ -529,6 +529,15 @@ in
       NUL = "> /dev/null 2>&1";
     };
 
+    envExtra = ''
+      TRAPUSR1() {
+        if [[ -o INTERACTIVE ]]; then
+           {echo; echo "Caught USR1, reloading zsh"} 1>&2
+           exec "''${SHELL}"
+        fi
+      }
+    '';
+
     initExtra = ''
       # init any-nix-shell manually, would be nice for home manager integration
       ${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin
@@ -585,14 +594,6 @@ in
       function ssht { ssh -t $1 'tmux attach || tmux' }
 
       eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
-
-      # Broken with home-manager zsh config
-      # "spams grep: command not found"
-      # TRAPHUP() {
-      #   print "Caught HUP, reloading zsh"
-      #   . ~/.zshrc
-      # }
-
       # run commands via SSH like: RUN="program opt1" zsh
       # http://superuser.com/a/790681
       eval "$RUN"
