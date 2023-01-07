@@ -475,11 +475,21 @@ in
       vir = "vimr";
     };
 
-    plugins = [
+    plugins = with pkgs; [
+      {
+        name = "fzf-tab";
+        src = zsh-fzf-tab;
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
+      }
+      {
+        name = "you-should-use";
+        src = zsh-you-should-use;
+        file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
+      }
       {
         # Auto-quote arguments for commands matching ZAQ_PREFIXES
         name = "zsh-autoquoter";
-        src = pkgs.fetchFromGitHub {
+        src = fetchFromGitHub {
           owner = "ianthehenry";
           repo = "zsh-autoquoter";
           rev = "819a615fbfd2ad25c5d311080e3a325696b45de7";
@@ -490,7 +500,7 @@ in
         # Search the current line instead of history using / and ?
         name = "zsh-vi-search";
         file = "src/zsh-vi-search.zsh";
-        src = pkgs.fetchFromGitHub {
+        src = fetchFromGitHub {
           owner = "soheilpro";
           repo = "zsh-vi-search";
           rev = "445c8a27dd2ce315176f18b4c7213c848f215675";
