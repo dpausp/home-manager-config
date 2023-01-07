@@ -457,6 +457,8 @@ in
       br = "broot";
       db = "dbat";
       debug = "zsh .debugrc";
+      # ">c<onnect with ssh and attach/start tmux"
+      c = "ssht";
       dum = "du -m --max-depth=1";
       dv = "dvimr";
       fu = "fuck";
