@@ -166,6 +166,13 @@ in
         '';
       };
 
+      nir = pkgs.writeShellApplication {
+        name = "nir";
+        text = ''
+          nix run nixpkgs#"$1"
+        '';
+      };
+
       outCmd = pkgs.writeShellApplication {
         name = "out";
         text = ''
@@ -433,6 +440,7 @@ in
       # Nix
       hm = "home-manager";
       hms = "home-manager switch";
+      n = "nir";
       nib = "nix-build";
       nis = "nix search u";
       # other
