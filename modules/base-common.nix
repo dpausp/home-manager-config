@@ -518,6 +518,8 @@ in
 
     shellGlobalAliases = {
       B = "| bat";
+      P = "| bat -pp";
+      C = "| cat";
       F = "| fzf";
       V = "| vimr -";
       # From oh-my-zsh common-aliases
