@@ -593,7 +593,6 @@ in
 
       function ssht { ssh -t $1 'tmux attach || tmux' }
 
-      eval "$(${pkgs.direnv}/bin/direnv hook zsh)"
       # run commands via SSH like: RUN="program opt1" zsh
       # http://superuser.com/a/790681
       eval "$RUN"
