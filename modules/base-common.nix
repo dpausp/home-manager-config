@@ -25,6 +25,7 @@ in
     genpass
     git-filter-repo
     git-push-branch
+    glances
     gnupg
     graphviz
     hexedit
