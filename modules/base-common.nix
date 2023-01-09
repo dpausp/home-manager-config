@@ -162,8 +162,15 @@ in
         name = "in";
         text = ''
           rcfile=$(find_up .in-syncrc)
+          echo ----
           echo "Executing $rcfile"
+          bat -pp "$rcfile"
+          if [[ $# -gt 0 ]]; then
+            echo "args: $*"
+          fi
+          echo -------- start
           sh "$rcfile" "$@"
+          echo ---------------- end
         '';
       };
 
@@ -178,8 +185,15 @@ in
         name = "out";
         text = ''
           rcfile=$(find_up .out-syncrc)
+          echo ----
           echo "Executing $rcfile"
+          bat -pp "$rcfile"
+          if [[ $# -gt 0 ]]; then
+            echo "args: $*"
+          fi
+          echo -------- start
           sh "$rcfile" "$@"
+          echo ---------------- end
         '';
       };
 
