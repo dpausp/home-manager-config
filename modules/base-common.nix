@@ -455,7 +455,7 @@ in
       gl = "git pull";
       go = "git log";
       gp = "git push";
-      grbc = "git rebase -econtinue";
+      grbc = "git rebase --continue";
       grbi = "git rebase -i";
       gsh = "git show";
       gsta = "git stash push";
@@ -469,6 +469,7 @@ in
       nib = "nix-build";
       nis = "nix search u";
       # other
+      b = "bat";
       br = "broot";
       db = "dbat";
       debug = "zsh .debugrc";
@@ -476,18 +477,23 @@ in
       c = "ssht";
       dum = "du -m --max-depth=1";
       dv = "dvimr";
+      e = "export";
       fu = "fuck";
+      h = "http";
+      hs = "https";
       newest_file = "ls -1t | head -n1";
       pstat = "python -mpstats";
+      p = "bat -pp";
       py = "python";
       run = "zsh .runrc";
       svi = "sudo -E vim";
+      t = "tail -f";
       ta = "tmux attach";
       tj = "tar xjf";
       tl = "tldr";
       tz = "tar xzf";
+      v = "vimr";
       vi = "vim";
-      vir = "vimr";
     };
 
     plugins = with pkgs; [
