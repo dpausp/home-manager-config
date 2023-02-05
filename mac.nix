@@ -29,6 +29,7 @@ with builtins;
     nix
     pandoc
     pgcli
+    procps
     sqlitebrowser
     sshfs-fuse
     unison
