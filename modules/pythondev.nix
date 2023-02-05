@@ -5,7 +5,8 @@ with builtins;
 {
   home.packages = with pkgs.python310Packages; [
     pkgs.python39
-    (pkgs.python310.overrideAttrs (_: { meta.priority = 3; }) )
+    (pkgs.python310.overrideAttrs (_: { meta.priority = 4; }) )
+    (pkgs.python311.overrideAttrs (_: { meta.priority = 3; }) )
     (black.overridePythonAttrs (_: {
       propagatedBuildInputs = black.propagatedBuildInputs ++ black.optional-dependencies.d;
     }))
