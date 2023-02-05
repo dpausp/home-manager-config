@@ -91,8 +91,11 @@ with builtins;
     '';
 
     shellAliases = {
+      esc = "open -t ~/.ssh/config";
       fc-copy-nixpkgs-version = "jq -r '.nixpkgs.rev' < versions.json | tr -d '\n' | pbcopy";
       ot = "open -t";
+      up = "home-manager switch";
+      hc = "cd ~/.config/nixpkgs/home-manager-config";
     };
 
     shellGlobalAliases = {
