@@ -551,6 +551,7 @@ in
       V = "| vimr -";
       # From oh-my-zsh common-aliases
       G = "| grep";
+      J = "| jq";
       L = "| less";
       NE = "2> /dev/null";
       NUL = "> /dev/null 2>&1";
