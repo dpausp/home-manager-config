@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, devenv, lib, ... }:
 
 with builtins;
 
@@ -15,6 +15,7 @@ with builtins;
     age
     cachix
     cacert
+    devenv.packages.x86_64-darwin.devenv
     dmenu
     gawk
     git
