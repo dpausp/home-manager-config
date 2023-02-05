@@ -425,16 +425,19 @@ in
     };
 
     shellAliases = rec {
-      # git
+      # git shell aliases
       g = "git status";
       ga = "git add";
       gap = "git add -p";
       gb = "git branch";
+      gbr = "git br"; # See programs.git
       gc = "git commit";
       gca = "git commit -a";
-      gcam = "git commit --amend";
+      gcam = "git commit -am";
+      gcae = "git commit --amend";
       gcan = "git commit --amend --no-edit";
       gcana = "git commit --amend --no-edit -a";
+      gcp = "git cherry-pick";
       gco = "git checkout";
       gcob = "git checkout -b";
       gcm = "git commit -m";
@@ -453,8 +456,11 @@ in
       gitp = "git push";
       gits = "git status";
       gl = "git pull";
+      gm = "git merge";
+      gmn = "git merge --no-ff";
       go = "git log";
       gp = "git push";
+      gpb = "git-push-branch";
       grbc = "git rebase --continue";
       grbi = "git rebase -i";
       gsh = "git show";
@@ -620,8 +626,9 @@ in
 
       export ZAQ_PREFIXES=(
         '[^ ]#pip install( [^ ]##)# -[^ -]#'
-        'gc( [^ ]##)# -[^ -]#m'
+        'git commit( [^ ]##)# -[^ -]#m'
         'gcm'
+        'gcam'
         'nix-shell( [^ ]##)# --[^ -]#run'
         'ssh( [^ ]##)# [^ -][^ ]#'
       )
