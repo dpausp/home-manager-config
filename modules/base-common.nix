@@ -55,6 +55,7 @@ in
     socat
     sqlite
     sshuttle
+    tailscale
     thefuck
     thumbs
     tree
