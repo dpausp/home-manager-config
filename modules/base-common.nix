@@ -493,13 +493,16 @@ in
       py = "python";
       run = "zsh .runrc";
       svi = "sudo -E vim";
-      t = "tail -f";
       ta = "tmux attach";
       tj = "tar xjf";
       tl = "tldr";
       tz = "tar xzf";
       v = "vimr";
       vi = "vim";
+
+      # From oh-my-zsh common-aliases
+      t = "tail -f";
+      dud = "du -d 1 -h";
     };
 
     plugins = with pkgs; [

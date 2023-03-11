@@ -6,17 +6,21 @@
     };
 
     shellAliases = {
-      # I use systemctl and journalctl all the time, I need convenient aliases :)
-      start = "sudo systemctl start";
-      stop = "sudo systemctl stop";
-      status = "systemctl status";
-      restart = "sudo systemctl restart";
-      # >S<ystemctl
-      s = "sudo systemctl";
-      # j>O<urnalctl
-      # o is easier to reach than j with Neo2 layout
-      o = "journalctl";
       j = "journalctl";
+      o = "journalctl"; # j>O<urnalctl
+      restart = "sudo systemctl restart";
+      re = "sudo systemctl restart";
+      run = "zsh .runrc";
+      s = "systemctl status --no-pager";
+      sc = "systemctl cat --no-pager";
+      sf = "systemctl --failed --no-pager";
+      sj = "systemctl list-jobs --no-pager";
+      sl = "sudo systemctl";
+      st = start;
+      sti = "systemctl list-timers --no-pager";
+      start = "sudo systemctl start";
+      status = "systemctl status";
+      stop = "sudo systemctl stop";
       us = "systemctl --user";
       # other
       m = "mount";
