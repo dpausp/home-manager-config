@@ -5,7 +5,7 @@
       CLIPBOARD_COPY_CMD = "xclip";
     };
 
-    shellAliases = {
+    shellAliases = rec {
       j = "journalctl";
       o = "journalctl"; # j>O<urnalctl
       restart = "sudo systemctl restart";
