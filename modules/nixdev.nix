@@ -4,7 +4,6 @@ with builtins;
 
 {
   home.packages = with pkgs; [
-    any-nix-shell
     manix
     niv
     nix-doc
@@ -14,7 +13,6 @@ with builtins;
     nix-prefetch-scripts
     nix-update
     nixfmt
-    pre-commit
   ];
 
 }

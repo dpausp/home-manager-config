@@ -11,7 +11,6 @@ in
     any-nix-shell
     apg
     bc
-    cloc
     dbat
     delta
     dhall

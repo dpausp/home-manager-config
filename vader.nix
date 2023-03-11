@@ -11,6 +11,7 @@ in
 
   imports = [
     modules/base-common.nix
+    modules/dev.nix
     modules/graphical.nix
     modules/nixdev.nix
     modules/nixos-x11.nix
