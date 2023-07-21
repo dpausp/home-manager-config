@@ -37,7 +37,6 @@ with builtins;
   ];
 
   home.sessionVariables = {
-    EDITOR = "/Users/ts/bin/subl --stay --wait --launch-or-new-window";
     CLIPBOARD_COPY_CMD = "pbcopy";
   };
 
