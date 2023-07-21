@@ -309,6 +309,7 @@ in
       ".runrc"
       ".settings"
       ".vscode"
+      "venv"
     ];
 
   };
