@@ -38,6 +38,8 @@ with builtins;
 
   home.sessionVariables = {
     CLIPBOARD_COPY_CMD = "pbcopy";
+    BATOU_AGE_IDENTITIES = "/Users/ts/.ssh/id_batou";
+    BATOU_AGE_IDENTITY_PASSPHRASE = "op://Private/id_batou/password";
   };
 
   nixpkgs.config = {
