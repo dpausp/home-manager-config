@@ -98,7 +98,7 @@ with builtins;
       fc-copy-nixpkgs-version = "jq -r '.nixpkgs.rev' < versions.json | tr -d '\n' | pbcopy";
       ot = "open -t";
       up = "home-manager switch";
-      hc = "cd ~/.config/nixpkgs/home-manager-config";
+      hc = "cd ~/.config/home-manager";
     };
 
     shellGlobalAliases = {
