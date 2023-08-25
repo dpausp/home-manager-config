@@ -624,7 +624,7 @@ in
 
       function nish { nix-shell -p "$@" --run zsh }
 
-      function ssht { ssh -t $1 'tmux attach || tmux' }
+      function ssht { ssh -t $1 'tmux attach || tmux -2' }
 
       # run commands via SSH like: RUN="program opt1" zsh
       # http://superuser.com/a/790681
