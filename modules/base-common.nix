@@ -34,6 +34,7 @@ in
     inetutils
     ipcalc
     jid
+    lnav
     magic-wormhole
     mailutils
     mosh
