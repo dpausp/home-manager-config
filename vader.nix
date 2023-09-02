@@ -54,6 +54,7 @@ in
     pkgs-unstable.nix
     okular
     pandoc
+    pdfarranger
     pdftk
     pgcli
     pinentry-curses
