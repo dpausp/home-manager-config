@@ -1,4 +1,4 @@
-{ config, pkgs, devenv, lib, ... }:
+{ config, pkgs, pkgs-unstable, devenv, lib, ... }:
 
 with builtins;
 
@@ -61,7 +61,26 @@ with builtins;
     })
   ];
 
+  programs.atuin = {
+    enable = true;
+    flags = [
+      "--disable-up-arrow"
+    ];
+    package = pkgs-unstable.atuin;
+  };
+
   programs.feh.enable = true;
+
+
+  programs.nushell = {
+    enable = true;
+    package = pkgs-unstable.nushell;
+    extraConfig = ''
+      $env.config = {
+        edit_mode: vi
+      }
+    '';
+  };
 
   programs.tmux.extraConfig = ''
     set -g status-right '%H:%M'
