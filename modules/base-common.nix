@@ -38,6 +38,7 @@ in
     magic-wormhole
     mailutils
     mosh
+    nagelfar
     netcat-gnu
     mtr
     nix-index
@@ -125,20 +126,22 @@ in
         '';
       };
 
-      findUpCmd = pkgs.writeShellApplication {
+      findUpCmd = pkgs.writeTclApplication {
         name = "find_up";
         text = ''
-          curpath=$(pwd)
-          file=$1
-          while [[ "$curpath" != "" && ! -e "$curpath/$file" ]]; do
-            curpath=''${curpath%/*}
-          done
-          if [[ -e "$curpath/$file" ]]; then
-            echo "$curpath/$file"
-          else
-            echo "Error: file $file not found in current and parent dirs!" >&2
-            exit 2
-          fi
+          set curpath [pwd]
+          set file [lindex $argv 0]
+
+          while { $curpath != "/" } {
+              if { [file exists "$curpath/$file"] } {
+                  puts "$curpath/$file"
+                  exit 0
+              }
+              set curpath [file dirname $curpath]
+          }
+
+          puts stderr "Error: file '$file' not found in current and parent dirs!"
+          exit 2
         '';
       };
 
@@ -174,6 +177,13 @@ in
           echo ---------------- end
         '';
       };
+
+      nagelfar = super.nagelfar.overrideAttrs(prev: {
+        installPhase = prev.installPhase + ''
+          mkdir $out/lib
+          cp $src/syntax*.tcl $out/lib/
+        '';
+      });
 
       nir = pkgs.writeShellApplication {
         name = "nir";
@@ -214,14 +224,15 @@ in
         };
       };
 
-      rwhich = pkgs.writeShellApplication {
+      rwhich = pkgs.writeTclApplication {
         name = "rwhich";
         text = ''
-          if which "$1"; then
-              readlink -f "$WHICH"
-          else
-              echo "$WHICH"
-          fi
+          set program [lindex $argv 0]
+          if { [catch { exec which $program } result] } {
+              puts "$program not found"
+          } else {
+              puts [exec readlink -f $result]
+          }
         '';
       };
 
@@ -235,6 +246,34 @@ in
         text = ''
           vim -R -c 'map q :q!<CR>' "$@"
         '';
+      };
+
+    writeTclApplication =
+      { name
+      , text
+      , runtimeInputs ? [ ]
+      , checkPhase ? null
+      }:
+      super.writeTextFile {
+        inherit name;
+        executable = true;
+        destination = "/bin/${name}";
+        allowSubstitutes = true;
+        preferLocalBuild = false;
+        text = ''
+          #!${self.tcl-8_6}/bin/tclsh
+
+          ${text}
+        '';
+
+        checkPhase =
+          if checkPhase == null then ''
+            export PATH=${lib.makeBinPath [self.tcl-8_6]}
+            runHook preCheck
+            ${self.nagelfar}/bin/nagelfar -s ${self.nagelfar}/lib/syntaxdb86.tcl "$target"
+            runHook postCheck
+          ''
+          else checkPhase;
       };
     })
   ];
