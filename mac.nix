@@ -33,7 +33,6 @@ with builtins;
     procps
     sqlitebrowser
     sshfs-fuse
-    unison
   ];
 
   home.sessionVariables = {
