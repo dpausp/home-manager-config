@@ -537,6 +537,7 @@ in
       tz = "tar xzf";
       v = "vimr";
       vi = "vim";
+      wip = "git add . && git commit --allow-empty -m WIP";
 
       # From oh-my-zsh common-aliases
       t = "tail -f";
