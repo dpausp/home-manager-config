@@ -35,6 +35,7 @@ in
     ipcalc
     jid
     lnav
+    (lnavGit.overrideAttrs (_: { meta.priority = 10; }) )
     magic-wormhole
     mailutils
     mosh
@@ -76,7 +77,21 @@ in
 
   nixpkgs.overlays = [
     (self: super: {
-      inherit (pkgs-unstable) delta;
+      inherit (pkgs-unstable) delta lnav;
+
+      lnavGit =
+        let rev = "a49c37e0af4392d6dd78b03efb5e78bcbeebc744";
+        in pkgs-unstable.lnav.overrideAttrs (old: {
+          version = "2025-06-05-${builtins.substring 0 7 rev}";
+          name = "lnav-unstable";
+          src = pkgs.fetchFromGitHub {
+            owner = "tstack";
+            repo = "lnav";
+            inherit rev;
+            hash = "sha256-CSt33LfKwhV6fzEuRI3t/2avkMfBAsrCgw75cbJ5gqM=";
+          };
+          patches = [];
+        });
 
       # Update to a version that has tmux_osc52 support and remove xclip dep.
       tmuxPlugins = super.tmuxPlugins // {
