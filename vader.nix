@@ -156,7 +156,7 @@ in
       export NIX_PATH="nixpkgs=${mkNixpkgsFlakeShim "n"}:nixpkgs-unstable=${mkNixpkgsFlakeShim "u"}";
     '';
 
-    initExtra = ''
+    initContent = ''
       function xg {
         git annex get "$@"
         git annex copy --to belakor "$@"

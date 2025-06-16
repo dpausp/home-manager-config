@@ -464,8 +464,8 @@ in
   programs.zsh = {
 
     autocd = true;
-    enableSyntaxHighlighting = true;
-    enableAutosuggestions = true;
+    syntaxHighlighting.enable = true;
+    autosuggestion.enable = true;
 
     oh-my-zsh = {
       plugins = [
@@ -623,7 +623,7 @@ in
       }
     '';
 
-    initExtra = ''
+    initContent = ''
       # init any-nix-shell manually, would be nice for home manager integration
       ${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin
 
