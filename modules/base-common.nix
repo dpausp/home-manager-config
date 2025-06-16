@@ -352,6 +352,9 @@ in
     };
 
     ignores = [
+      ".aider.chat.history.md"
+      ".aider.input.history"
+      ".aider.tags.cache.v4/"
       ".dbeaver-data-sources.xml"
       ".idea"
       ".in-syncrc"
