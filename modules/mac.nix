@@ -3,42 +3,30 @@
 with builtins;
 
 {
-  imports = [
-    modules/base-common.nix
-    modules/dev.nix
-    modules/graphical.nix
-    modules/nixdev.nix
-    modules/pythondev.nix
-    modules/zsh.nix
-  ];
-
   home.packages = with pkgs; [
     age
     cachix
     cacert
-    devenv.packages.x86_64-darwin.devenv
+    devenv.packages.aarch64-darwin.devenv
     dmenu
     gawk
     git
     git-lfs
     gitAndTools.git-annex
-    img2pdf
     jetbrains.pycharm-community
     kubectl
-    moft
     ngrok
-    nix
+    nix-output-monitor
     pandoc
     pgcli
     procps
     sqlitebrowser
     sshfs-fuse
+    uv
   ];
 
   home.sessionVariables = {
     CLIPBOARD_COPY_CMD = "pbcopy";
-    BATOU_AGE_IDENTITIES = "/Users/ts/.ssh/id_batou";
-    BATOU_AGE_IDENTITY_PASSPHRASE = "op://Private/id_batou/password";
   };
 
   nixpkgs.config = {
@@ -46,19 +34,6 @@ with builtins;
       builtins.elem (lib.getName pkg) [ "ngrok" ];
   };
 
-  nixpkgs.overlays = [
-    (self: super: {
-
-      moft = pkgs.writeShellApplication {
-        name = "moft";
-        # Connect with mosh and attach/create tmux session, like `ssht`
-        text = ''
-          mosh "$1".fe -- bash -c "tmux attach || tmux"
-        '';
-      };
-
-    })
-  ];
 
   programs.atuin = {
     enable = true;
@@ -69,7 +44,6 @@ with builtins;
   };
 
   programs.feh.enable = true;
-
 
   programs.nushell = {
     enable = true;
@@ -100,7 +74,7 @@ with builtins;
     ];
     # The Nix init stuff should run as early as possible.
     # Doesn't really matter for the rest.
-    initExtra = lib.mkBefore ''
+    initContent = lib.mkBefore ''
       # Nix
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
