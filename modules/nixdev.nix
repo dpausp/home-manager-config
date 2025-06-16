@@ -5,6 +5,7 @@ with builtins;
 {
   home.packages = with pkgs; [
     manix
+    nil
     niv
     nix-doc
     nix-index
@@ -12,7 +13,8 @@ with builtins;
     nix-prefetch-github
     nix-prefetch-scripts
     nix-update
-    nixfmt
+    nixd
+    nixfmt-rfc-style
   ];
 
 }
