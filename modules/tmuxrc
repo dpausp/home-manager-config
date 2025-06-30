@@ -25,7 +25,11 @@ bind -r n select-window -t :+
 
 # yanking and pasting, vim style, clipboard integration
 bind Escape copy-mode
-bind-key -T copy-mode-vi v send-keys -X begin-selection
+
+#bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi 'v' send -X begin-selection     # Begin selection in copy mode.
+bind-key -T copy-mode-vi 'C-v' send -X rectangle-toggle  # Begin selection in copy mode.
+bind-key -T copy-mode-vi 'y' send -X copy-selection      # Yank selection in copy mode.
 
 unbind p
 bind p paste-buffer
@@ -49,6 +53,7 @@ bind -T off F12 \
 
 set -g @resurrect-processes 'atop broot blackd journalctl glances watch'
 
+set -g @thumbs-key T
 set -g @thumbs-contrast 1
 set -g @thumbs-reverse enabled
 set -g @thumbs-unique enabled
