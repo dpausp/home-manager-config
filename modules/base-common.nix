@@ -33,8 +33,7 @@ in
     inetutils
     ipcalc
     jid
-    lnav
-    (lnavGit.overrideAttrs (_: { meta.priority = 10; }) )
+    lnavGit
     magic-wormhole
     mailutils
     mosh
