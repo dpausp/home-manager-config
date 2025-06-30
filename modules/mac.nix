@@ -81,7 +81,6 @@ with builtins;
       fi
       # End Nix
 
-      unalias ls
       bindkey -M viins '\e\C-h' backward-kill-word
     '';
 

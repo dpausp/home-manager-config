@@ -8,7 +8,6 @@ in
 {
   home.packages = with pkgs; [
     amber
-    any-nix-shell
     apg
     bc
     dbat
@@ -41,6 +40,7 @@ in
     mosh
     nagelfar
     netcat-gnu
+    nix-your-shell
     mtr
     nix-index
     nmap
@@ -383,6 +383,7 @@ in
 
   programs.navi.enable = true;
   programs.nix-index.enable = true;
+  programs.nix-your-shell.enable = true;
 
   programs.password-store = {
     enable = true;
@@ -546,7 +547,6 @@ in
       newest_file = "ls -1t | head -n1";
       pstat = "python -mpstats";
       p = "bat -pp";
-      py = "python";
       run = "zsh .runrc";
       svi = "sudo -E vim";
       ta = "tmux attach";
@@ -627,9 +627,6 @@ in
     '';
 
     initContent = ''
-      # init any-nix-shell manually, would be nice for home manager integration
-      ${pkgs.any-nix-shell}/bin/any-nix-shell zsh --info-right | source /dev/stdin
-
       # Inlined output of `fuck --alias fu`
       # thefuck recommends evaling the command here but it's fucking slow :)
 

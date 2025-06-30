@@ -4,7 +4,6 @@ with builtins;
 
 {
   home.packages = with pkgs; [
-    any-nix-shell
     entr
     fd
     file
