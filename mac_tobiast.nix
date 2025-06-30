@@ -4,6 +4,7 @@ with builtins;
 
 {
   imports = [
+    modules/ai.nix
     modules/base-common.nix
     modules/dev.nix
     modules/graphical.nix
