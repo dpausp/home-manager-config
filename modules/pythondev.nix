@@ -13,4 +13,9 @@ with builtins;
     uv
   ];
 
+  programs.zsh.initContent = ''
+    # Tool-specific completions
+    eval "$(uv generate-shell-completion zsh)"
+  '';
+
 }
