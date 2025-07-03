@@ -8,4 +8,8 @@ with builtins;
     llama-cpp
     ollama
   ];
+
+  programs.zsh.shellAliases = {
+    aider = "uv run --project ~/git/aider aider";
+  };
 }
