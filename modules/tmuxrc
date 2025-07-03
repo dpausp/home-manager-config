@@ -8,8 +8,6 @@ set -g status-style fg=white,bg=black
 setw -g window-status-current-style fg=white,bold,bg=black
 set -g status-left-length 100
 set -g status-left '[#S] #(whoami)@#H'
-set -g status-interval 5
-set -g status-justify centre
 
 setw -g pane-border-style fg=green
 setw -g pane-active-border-style fg=white
@@ -26,7 +24,6 @@ bind -r n select-window -t :+
 # yanking and pasting, vim style, clipboard integration
 bind Escape copy-mode
 
-#bind-key -T copy-mode-vi v send-keys -X begin-selection
 bind-key -T copy-mode-vi 'v' send -X begin-selection     # Begin selection in copy mode.
 bind-key -T copy-mode-vi 'C-v' send -X rectangle-toggle  # Begin selection in copy mode.
 bind-key -T copy-mode-vi 'y' send -X copy-selection      # Yank selection in copy mode.
