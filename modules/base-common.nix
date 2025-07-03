@@ -10,10 +10,14 @@ in
     amber
     apg
     bc
+    bottom
     dbat
     delta
     dhall
     diceware
+    doggo
+    duf
+    dust
     dvimr
     entr
     fd
@@ -29,6 +33,7 @@ in
     hexedit
     html-tidy
     httpie
+    hyperfine
     inCmd
     inetutils
     ipcalc
@@ -45,7 +50,9 @@ in
     nmap
     nvd
     outCmd
+    pastel
     pipe-rename
+    procs
     pssh
     remarshal
     rich-cli
@@ -60,6 +67,7 @@ in
     tailscale
     thefuck
     thumbs
+    tokei
     tree
     unzip
     vimr
