@@ -5,6 +5,7 @@ with builtins;
 {
   home.packages = with pkgs-unstable; [
     aider-chat
+    llama-cpp
     ollama
   ];
 }
