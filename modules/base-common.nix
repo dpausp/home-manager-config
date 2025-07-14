@@ -21,6 +21,7 @@ in
     findUpCmd
     fpp
     genpass
+    gita
     git-filter-repo
     git-push-branch
     glances
@@ -501,7 +502,6 @@ in
       ggs = gitls;
       gi = "git diff";
       gica = "git diff --cached";
-      gita = "git add";
       gitaww = "git diff -w --no-color | git apply --cached --ignore-whitespace"; # add changes, ignore whitespace
       gitb = "git bisect";
       gitc = "git commit";
