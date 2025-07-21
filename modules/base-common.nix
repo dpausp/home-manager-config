@@ -79,7 +79,6 @@ in
   home.sessionVariables = {
     DELTA_PAGER = "bat";
     LC_MESSAGES = "C";
-    EDITOR = "vim";
   };
 
   nixpkgs.overlays = [
