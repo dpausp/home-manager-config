@@ -13,6 +13,7 @@ with builtins;
     ./modules/nixdev.nix
     ./modules/pin-flakes.nix
     ./modules/pythondev.nix
+    ./modules/zellij.nix
     ./modules/zsh.nix
   ];
 
