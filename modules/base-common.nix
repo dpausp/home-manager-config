@@ -76,6 +76,9 @@ in
   ];
 
   home.enableNixpkgsReleaseCheck = true;
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
   home.sessionVariables = {
     DELTA_PAGER = "bat";
     LC_MESSAGES = "C";
