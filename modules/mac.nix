@@ -2,6 +2,10 @@
 
 with builtins;
 
+let
+  homedir = config.home.homeDirectory;
+  unfreePackages = [];
+in
 {
   home.packages = with pkgs; [
     age
@@ -15,7 +19,6 @@ with builtins;
     gitAndTools.git-annex
     jetbrains.pycharm-community
     kubectl
-    ngrok
     nix-output-monitor
     pandoc
     pgcli
@@ -31,9 +34,8 @@ with builtins;
 
   nixpkgs.config = {
     allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [ "ngrok" ];
+      builtins.elem (lib.getName pkg) [ ];
   };
-
 
   programs.atuin = {
     enable = true;
