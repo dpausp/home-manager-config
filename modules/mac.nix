@@ -62,7 +62,7 @@ in
 
   programs.tmux.extraConfig = ''
     set -g status-right '%H:%M'
-    set -g default-command "/Users/ts/.nix-profile/bin/zsh"
+    set -g default-command "${homedir}/.nix-profile/bin/zsh"
   '';
 
   programs.vim.extraConfig = ''
@@ -73,9 +73,9 @@ in
 
   programs.zsh = {
     cdpath = [
-      "/Users/ts/git"
-      "/Users/ts/machines"
-      "/Users/ts/venvs"
+      "${homedir}/git"
+      "${homedir}/machines"
+      "${homedir}/venvs"
     ];
     # The Nix init stuff should run as early as possible.
     # Doesn't really matter for the rest.
