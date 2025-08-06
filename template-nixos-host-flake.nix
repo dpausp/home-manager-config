@@ -7,24 +7,38 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, devenv }: {
-    homeConfigurations = 
-    let
-      system = "x86_64-linux";
-
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
+  outputs =
     {
-      ts = home-manager.lib.homeManagerConfiguration {
-        extraSpecialArgs = {
-          inherit pkgs-unstable home-manager nixpkgs nixpkgs-unstable devenv;
+      self,
+      home-manager,
+      nixpkgs,
+      nixpkgs-unstable,
+      devenv,
+    }:
+    {
+      homeConfigurations =
+        let
+          system = "x86_64-linux";
+
+          pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          ts = home-manager.lib.homeManagerConfiguration {
+            extraSpecialArgs = {
+              inherit
+                pkgs-unstable
+                home-manager
+                nixpkgs
+                nixpkgs-unstable
+                devenv
+                ;
+            };
+            inherit pkgs;
+            modules = [
+              ./host.nix
+            ];
+          };
         };
-        inherit pkgs;
-        modules = [
-          ./host.nix"
-        ];
-      };
     };
-  };
 }
