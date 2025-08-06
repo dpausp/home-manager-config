@@ -44,7 +44,6 @@ in
     mosh
     nagelfar
     netcat-gnu
-    nix-your-shell
     mtr
     nix-index
     nmap
