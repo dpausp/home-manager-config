@@ -1,4 +1,11 @@
-{ config, pkgs, pkgs-unstable, devenv, lib, ... }:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  devenv,
+  lib,
+  ...
+}:
 
 with builtins;
 
@@ -23,4 +30,3 @@ with builtins;
     homeDirectory = "/Users/tobiast";
   };
 }
-

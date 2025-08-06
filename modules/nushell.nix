@@ -1,8 +1,14 @@
-{ config, pkgs, pkgs-unstable, devenv, lib, ... }:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  devenv,
+  lib,
+  ...
+}:
 {
   programs.nushell = {
     enable = true;
     package = pkgs-unstable.nushell;
   };
 }
-

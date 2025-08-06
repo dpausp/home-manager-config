@@ -1,11 +1,20 @@
-{ config, pkgs, devenv, pkgs-unstable, lib, ... }:
+{
+  config,
+  pkgs,
+  devenv,
+  pkgs-unstable,
+  lib,
+  ...
+}:
 
 with builtins;
 
 let
-  mkNixpkgsFlakeShim = flake: pkgs.writeText "nixpkgs-from-flake" ''
-    _ : (builtins.getFlake "${flake}").outputs.legacyPackages.''${builtins.currentSystem}
-  '';
+  mkNixpkgsFlakeShim =
+    flake:
+    pkgs.writeText "nixpkgs-from-flake" ''
+      _ : (builtins.getFlake "${flake}").outputs.legacyPackages.''${builtins.currentSystem}
+    '';
 in
 {
 
@@ -85,8 +94,12 @@ in
   nix.package = pkgs-unstable.nix;
 
   nixpkgs.config = {
-    allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [ "ngrok" "sublimetext4" ];
+    allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "ngrok"
+        "sublimetext4"
+      ];
   };
 
   programs.chromium.enable = true;
@@ -98,7 +111,9 @@ in
     userEmail = "dpausp@posteo.de";
 
     extraConfig = {
-      safe = { directory = "/home/ts/annex/belakor"; };
+      safe = {
+        directory = "/home/ts/annex/belakor";
+      };
     };
   };
 
@@ -112,16 +127,20 @@ in
   programs.texlive.enable = true;
   programs.topgrade.enable = true;
   programs.topgrade.settings = {
-    disable = [ "system" "tmux" "vim" "pip3" "home_manager" ];
+    disable = [
+      "system"
+      "tmux"
+      "vim"
+      "pip3"
+      "home_manager"
+    ];
     pre_commands = {
       "Update pinned nixpkgs for nixops" = "(cd ~/nixos-machines-home && niv update)";
       "nixos deploy local system (vader)" =
         "nix-shell ~/nixos-machines-home --run 'nixops deploy -d home --include vader'";
       "Update home manager inputs" = "nix flake update ~/.config/nixpkgs";
-      "Update pinned stable nixpkgs (n)" =
-        "nix registry pin n github:nixos/nixpkgs/nixos-22.05";
-      "Update pinned unstable nixpkgs (u)" =
-        "nix registry pin u github:nixos/nixpkgs/nixos-unstable";
+      "Update pinned stable nixpkgs (n)" = "nix registry pin n github:nixos/nixpkgs/nixos-22.05";
+      "Update pinned unstable nixpkgs (u)" = "nix registry pin u github:nixos/nixpkgs/nixos-unstable";
     };
     commands = {
       # topgrade supports home-manager, but home-manager switch is broken with newer Nix versions.
@@ -130,8 +149,7 @@ in
       "Build home-manager config" =
         "(cd ~/.config/nixpkgs && home-manager build && nix profile remove 0 && result/activate)";
       "Run garbage collection on Nix store" = "sudo nix-collect-garbage";
-      "Remove profile versions older than 30d" =
-        "nix profile wipe-history --older-than 30d";
+      "Remove profile versions older than 30d" = "nix profile wipe-history --older-than 30d";
     };
   };
 
@@ -173,4 +191,3 @@ in
   services.lorri.enable = true;
 
 }
-

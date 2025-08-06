@@ -14,7 +14,9 @@ with builtins;
   ];
 
   home.enableNixpkgsReleaseCheck = true;
-  home.sessionVariables = { DELTA_PAGER = "bat"; };
+  home.sessionVariables = {
+    DELTA_PAGER = "bat";
+  };
 
   programs.bat.enable = true;
   programs.exa.enable = true;
@@ -26,8 +28,7 @@ with builtins;
       co = "checkout";
       re = "rebase";
       id = "rev-parse HEAD";
-      br =
-        "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
+      br = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
     };
 
     extraConfig = {
@@ -42,23 +43,41 @@ with builtins;
         interactive = true;
       };
 
-      diff = { colorMoved = "default"; };
+      diff = {
+        colorMoved = "default";
+      };
 
-      difftool = { prompt = false; };
+      difftool = {
+        prompt = false;
+      };
 
-      fetch = { fsckObjects = true; };
+      fetch = {
+        fsckObjects = true;
+      };
 
-      merge = { conflictstyle = "diff3"; };
+      merge = {
+        conflictstyle = "diff3";
+      };
 
-      "protocol \"http\"" = { allow = "never"; };
+      "protocol \"http\"" = {
+        allow = "never";
+      };
 
-      pull = { ff = "only"; };
+      pull = {
+        ff = "only";
+      };
 
-      rebase = { instructionFormat = "%at <%ae> %s"; };
+      rebase = {
+        instructionFormat = "%at <%ae> %s";
+      };
 
-      transfer = { fsckObjects = true; };
+      transfer = {
+        fsckObjects = true;
+      };
 
-      receive = { fsckObjects = true; };
+      receive = {
+        fsckObjects = true;
+      };
     };
 
   };
@@ -79,27 +98,36 @@ with builtins;
 
   programs.vim = {
     enable = true;
-    packageConfigurable = lib.mkDefault (pkgs.vimUtils.makeCustomizable
-      (pkgs.vim_configurable.override {
-        config = {
-          netbeans = false;
-          vim = { gui = "no"; };
-        };
-        libX11 = null;
-        libXext = null;
-        libSM = null;
-        libXpm = null;
-        libXt = null;
-        libXaw = null;
-        libXau = null;
-        libXmu = null;
-        libICE = null;
-        gtk2-x11 = null;
-        gtk3-x11 = null;
-      }));
+    packageConfigurable = lib.mkDefault (
+      pkgs.vimUtils.makeCustomizable (
+        pkgs.vim_configurable.override {
+          config = {
+            netbeans = false;
+            vim = {
+              gui = "no";
+            };
+          };
+          libX11 = null;
+          libXext = null;
+          libSM = null;
+          libXpm = null;
+          libXt = null;
+          libXaw = null;
+          libXau = null;
+          libXmu = null;
+          libICE = null;
+          gtk2-x11 = null;
+          gtk3-x11 = null;
+        }
+      )
+    );
 
     extraConfig = readFile ./vimrc;
-    plugins = with pkgs.vimPlugins; [ vim-airline vim-nix vim-surround ];
+    plugins = with pkgs.vimPlugins; [
+      vim-airline
+      vim-nix
+      vim-surround
+    ];
   };
 
   programs.zoxide.enable = true;

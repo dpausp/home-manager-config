@@ -1,10 +1,17 @@
-{ config, pkgs, pkgs-unstable, devenv, lib, ... }:
+{
+  config,
+  pkgs,
+  pkgs-unstable,
+  devenv,
+  lib,
+  ...
+}:
 
 with builtins;
 
 let
   homedir = config.home.homeDirectory;
-  unfreePackages = [];
+  unfreePackages = [ ];
 in
 {
   home.packages = with pkgs; [
@@ -28,6 +35,7 @@ in
     topgrade
     uv
     wget
+    xonsh
     zoxide
   ];
 
@@ -36,8 +44,7 @@ in
   };
 
   nixpkgs.config = {
-    allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [ ];
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ ];
   };
 
   programs.atuin = {
@@ -50,14 +57,14 @@ in
 
   programs.feh.enable = true;
 
+  programs.fish = {
+    enable = true;
+  };
+
   programs.nushell = {
     enable = true;
     package = pkgs-unstable.nushell;
     configFile.source = ./config.nu;
-  };
-
-  programs.fish = {
-    enable = true;
   };
 
   programs.tmux.extraConfig = ''
@@ -74,8 +81,6 @@ in
   programs.zsh = {
     cdpath = [
       "${homedir}/git"
-      "${homedir}/machines"
-      "${homedir}/venvs"
     ];
     # The Nix init stuff should run as early as possible.
     # Doesn't really matter for the rest.
@@ -101,4 +106,3 @@ in
     };
   };
 }
-

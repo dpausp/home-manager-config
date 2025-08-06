@@ -1,80 +1,98 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 
 with builtins;
 
-let 
+let
   home = config.home.homeDirectory;
 in
 {
-  home.packages = with pkgs; [
-    amber
-    apg
-    bc
-    bottom
-    dbat
-    delta
-    dhall
-    diceware
-    doggo
-    duf
-    dust
-    dcd
-    dvimr
-    entr
-    fd
-    file
-    findUpCmd
-    fpp
-    genpass
-    git-filter-repo
-    git-push-branch
-    glances
-    gnupg
-    graphviz
-    hexedit
-    html-tidy
-    httpie
-    hyperfine
-    inCmd
-    inetutils
-    ipcalc
-    jid
-    #lnavGit
-    magic-wormhole
-    mailutils
-    mosh
-    nagelfar
-    netcat-gnu
-    mtr
-    nix-index
-    nmap
-    nvd
-    outCmd
-    pastel
-    pipe-rename
-    procs
-    pssh
-    remarshal
-    rich-cli
-    ripgrep
-    rwhich
-    sd
-    sharutils
-    shellcheck
-    socat
-    sqlite
-    statix
-    sshuttle
-    tailscale
-    thefuck
-    thumbs
-    tokei
-    tree
-    unzip
-    vimr
-    wrk
-    zip
-  ];
+  home.packages =
+    with pkgs;
+    [
+      amber
+      apg
+      bc
+      bottom
+      delta
+      dhall
+      diceware
+      doggo
+      duf
+      dust
+      entr
+      fd
+      file
+      fpp
+      genpass
+      git-filter-repo
+      git-push-branch
+      glances
+      gnupg
+      graphviz
+      hexedit
+      html-tidy
+      httpie
+      hyperfine
+      inCmd
+      inetutils
+      ipcalc
+      jid
+      #lnavGit
+      magic-wormhole
+      mailutils
+      mosh
+      nagelfar
+      netcat-gnu
+      mtr
+      nixfmt-tree
+      nmap
+      nvd
+      pastel
+      pipe-rename
+      procs
+      pssh
+      remarshal
+      rich-cli
+      ripgrep
+      sd
+      sharutils
+      shellcheck
+      socat
+      sqlite
+      statix
+      sshuttle
+      tailscale
+      statix
+      thefuck
+      thumbs
+      tokei
+      tree
+      unzip
+      wrk
+      zip
+    ]
+    ++ [
+      dbat
+      dcd
+      dvimr
+      findUpCmd
+      fpid
+      gen-passphrase
+      inCmd
+      jat
+      n
+      niss
+      outCmd
+      rwhich
+      ssht
+      vimr
+    ];
 
   home.enableNixpkgsReleaseCheck = true;
   home.sessionPath = [
@@ -90,8 +108,10 @@ in
       inherit (pkgs-unstable) delta lnav;
 
       lnavGit =
-        let rev = "a49c37e0af4392d6dd78b03efb5e78bcbeebc744";
-        in pkgs-unstable.lnav.overrideAttrs (old: {
+        let
+          rev = "a49c37e0af4392d6dd78b03efb5e78bcbeebc744";
+        in
+        pkgs-unstable.lnav.overrideAttrs (old: {
           version = "2025-06-05-${builtins.substring 0 7 rev}";
           name = "lnav-unstable";
           src = pkgs.fetchFromGitHub {
@@ -100,7 +120,7 @@ in
             inherit rev;
             hash = "sha256-CSt33LfKwhV6fzEuRI3t/2avkMfBAsrCgw75cbJ5gqM=";
           };
-          patches = [];
+          patches = [ ];
         });
 
       # Update to a version that has tmux_osc52 support and remove xclip dep.
@@ -115,12 +135,16 @@ in
             sha256 = "BfQkVxVwT+hjb2T13H1EPKXS+W5FIJyQkR+Iz9079FU=";
           };
           postInstall = ''
-          for f in extrakto.sh open.sh; do
-            wrapProgram $target/scripts/$f \
-              --prefix PATH : ${with pkgs; lib.makeBinPath (
-              [ pkgs.fzf pkgs.python3 ]
-              )}
-          done
+            for f in extrakto.sh open.sh; do
+              wrapProgram $target/scripts/$f \
+                --prefix PATH : ${
+                  with pkgs;
+                  lib.makeBinPath ([
+                    pkgs.fzf
+                    pkgs.python3
+                  ])
+                }
+            done
           '';
         });
 
@@ -178,7 +202,14 @@ in
         '';
       };
 
-      genpass = pkgs.writeShellApplication {
+      fpid = pkgs.writeShellApplication {
+        name = "fpid";
+        text = ''
+          ps aux | fzf -m -q "$@" | awk '{ print $2 }'
+        '';
+      };
+
+      gen-passphrase = pkgs.writeShellApplication {
         name = "genpass";
         runtimeInputs = with pkgs; [ diceware ];
         text = ''
@@ -211,17 +242,33 @@ in
         '';
       };
 
-      nagelfar = super.nagelfar.overrideAttrs(prev: {
+      jat = pkgs.writeShellApplication {
+        name = "jat";
+        text = ''
+          jq '.' -C < "$1" | bat
+        '';
+      };
+
+      nagelfar = super.nagelfar.overrideAttrs (prev: {
         installPhase = prev.installPhase + ''
           mkdir $out/lib
           cp $src/syntax*.tcl $out/lib/
         '';
       });
 
-      nir = pkgs.writeShellApplication {
-        name = "nir";
+      n = pkgs.writeShellApplication {
+        name = "n";
         text = ''
           nom run nixpkgs#"$1"
+        '';
+      };
+
+      niss = pkgs.writeShellApplication {
+        name = "niss";
+        text = ''
+          search="$1"
+          shift
+          nix search u --json "$search" | jq "$@"
         '';
       };
 
@@ -246,8 +293,10 @@ in
         pname = "pass-tail";
 
         dontBuild = true;
-        makeFlags =
-          [ "PREFIX=$(out)" "BASHCOMPDIR=$(out)/etc/bash_completion.d" ];
+        makeFlags = [
+          "PREFIX=$(out)"
+          "BASHCOMPDIR=$(out)/etc/bash_completion.d"
+        ];
 
         src = pkgs.fetchFromGitHub {
           owner = "palortoff";
@@ -269,6 +318,13 @@ in
         '';
       };
 
+      ssht = pkgs.writeShellApplication {
+        name = "ssht";
+        text = ''
+          ssh -t "$1" 'tmux attach || tmux -2'
+        '';
+      };
+
       vim-myplugin = pkgs.vimUtils.buildVimPlugin {
         name = "vim-myplugin";
         src = ./vim-myplugin;
@@ -281,44 +337,50 @@ in
         '';
       };
 
-    writeTclApplication =
-      { name
-      , text
-      , runtimeInputs ? [ ]
-      , checkPhase ? null
-      }:
-      super.writeTextFile {
-        inherit name;
-        executable = true;
-        destination = "/bin/${name}";
-        allowSubstitutes = true;
-        preferLocalBuild = false;
-        text = ''
-          #!${self.tcl-8_6}/bin/tclsh
+      writeTclApplication =
+        {
+          name,
+          text,
+          runtimeInputs ? [ ],
+          checkPhase ? null,
+        }:
+        super.writeTextFile {
+          inherit name;
+          executable = true;
+          destination = "/bin/${name}";
+          allowSubstitutes = true;
+          preferLocalBuild = false;
+          text = ''
+            #!${self.tcl-8_6}/bin/tclsh
 
-          ${text}
-        '';
+            ${text}
+          '';
 
-        checkPhase =
-          if checkPhase == null then ''
-            export PATH=${lib.makeBinPath [self.tcl-8_6]}
-            runHook preCheck
-            ${self.nagelfar}/bin/nagelfar -s ${self.nagelfar}/lib/syntaxdb86.tcl "$target"
-            runHook postCheck
-          ''
-          else checkPhase;
-      };
+          checkPhase =
+            if checkPhase == null then
+              ''
+                export PATH=${lib.makeBinPath [ self.tcl-8_6 ]}
+                runHook preCheck
+                ${self.nagelfar}/bin/nagelfar -s ${self.nagelfar}/lib/syntaxdb86.tcl "$target"
+                runHook postCheck
+              ''
+            else
+              checkPhase;
+        };
     })
   ];
-  programs.bat.enable = true;
-  programs.broot.enable = true;
-  programs.carapace.enable = true;
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
 
-  programs.eza.enable = true;
-
-  programs.fzf.enable = true;
+  programs = {
+    bat.enable = true;
+    broot.enable = true;
+    carapace.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+    eza.enable = true;
+    fzf.enable = true;
+  };
 
   programs.git = {
     delta.enable = true;
@@ -328,8 +390,7 @@ in
       co = "checkout";
       re = "rebase";
       id = "rev-parse HEAD";
-      br =
-        "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
+      br = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
     };
 
     extraConfig = {
@@ -349,25 +410,45 @@ in
         navigate = true;
       };
 
-      diff = { colorMoved = "default"; };
+      diff = {
+        colorMoved = "default";
+      };
 
-      difftool = { prompt = false; };
+      difftool = {
+        prompt = false;
+      };
 
-      fetch = { fsckObjects = true; };
+      fetch = {
+        fsckObjects = true;
+      };
 
-      init = { defaultBranch = "main"; };
+      init = {
+        defaultBranch = "main";
+      };
 
-      merge = { conflictstyle = "diff3"; };
+      merge = {
+        conflictstyle = "diff3";
+      };
 
-      "protocol \"http\"" = { allow = "never"; };
+      "protocol \"http\"" = {
+        allow = "never";
+      };
 
-      pull = { ff = "only"; };
+      pull = {
+        ff = "only";
+      };
 
-      rebase = { instructionFormat = "%at <%ae> %s"; };
+      rebase = {
+        instructionFormat = "%at <%ae> %s";
+      };
 
-      transfer = { fsckObjects = true; };
+      transfer = {
+        fsckObjects = true;
+      };
 
-      receive = { fsckObjects = true; };
+      receive = {
+        fsckObjects = true;
+      };
     };
 
     ignores = [
@@ -406,9 +487,13 @@ in
 
   programs.password-store = {
     enable = true;
-    package =
-      pkgs.pass.withExtensions (exts: [ exts.pass-genphrase pkgs.pass-tail ]);
-    settings = { PASSWORD_STORE_DIR = "${home}/.password-store"; };
+    package = pkgs.pass.withExtensions (exts: [
+      exts.pass-genphrase
+      pkgs.pass-tail
+    ]);
+    settings = {
+      PASSWORD_STORE_DIR = "${home}/.password-store";
+    };
   };
 
   programs.starship = {
@@ -432,8 +517,8 @@ in
       };
 
       nix_shell = {
-        pure_msg ="pure";
-        impure_msg ="";
+        pure_msg = "pure";
+        impure_msg = "";
       };
       shell = {
         disabled = false;
@@ -473,30 +558,37 @@ in
 
   programs.vim = {
     enable = true;
-    packageConfigurable = lib.mkDefault (pkgs.vim_configurable.override {
-      config = {
-        vim = { gui = "none"; };
-      };
-    });
+    packageConfigurable = lib.mkDefault (
+      pkgs.vim_configurable.override {
+        config = {
+          vim = {
+            gui = "none";
+          };
+        };
+      }
+    );
 
     extraConfig = readFile ./vimrc;
-    plugins = with pkgs.vimPlugins; [
-      ale
-      nginx-vim
-      unite
-      vim-airline
-      vim-dirdiff
-      vim-indent-object
-      vim-jinja
-      vim-endwise
-      vim-nix
-      vim-repeat
-      vim-sensible
-      SyntaxRange
-      vim-surround
-    ] ++ (with pkgs; [
-      vim-myplugin
-    ]);
+    plugins =
+      with pkgs.vimPlugins;
+      [
+        ale
+        nginx-vim
+        unite
+        vim-airline
+        vim-dirdiff
+        vim-indent-object
+        vim-jinja
+        vim-endwise
+        vim-nix
+        vim-repeat
+        vim-sensible
+        SyntaxRange
+        vim-surround
+      ]
+      ++ (with pkgs; [
+        vim-myplugin
+      ]);
   };
 
   programs.zoxide.enable = true;
@@ -536,22 +628,14 @@ in
       gcm = "git commit -m";
       gf = "git fetch -v";
       gfa = "git fetch --all -v";
-      ggs = gitls;
       gi = "git diff";
       gica = "git diff --cached";
       gitaww = "git diff -w --no-color | git apply --cached --ignore-whitespace"; # add changes, ignore whitespace
-      gitb = "git bisect";
-      gitc = "git commit";
-      gitd = "git diff";
-      gitdc = "git diff --cached";
-      gitl = "git log";
-      gitls = "git log --pretty=format:'%H %as %s (%an)'";
-      gitp = "git push";
-      gits = "git status";
       gl = "git pull";
       gm = "git merge";
       gmn = "git merge --no-ff";
       go = "git log";
+      gos = "git log --pretty=format:'%H %as %s (%an)'";
       gp = "git push";
       gpb = "git-push-branch";
       grbc = "git rebase --continue";
@@ -566,7 +650,6 @@ in
       hm = "home-manager";
       hms = "(cd ~ && nix flake update hm-config && home-manager switch)";
       hb = "(cd ~ && nix flake update hm-config && home-manager build)";
-      n = "nir";
       nib = "nix-build";
       nis = "nix search u";
       # other
@@ -639,7 +722,7 @@ in
       BAT_PAGER = "less -R";
       TMUX_FZF_OPTIONS = "-p -w 95% -h 38% -m";
       VI_MODE_SET_CURSOR = true;
-      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue,underline";
+      ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=blue,underline";
     };
 
     shellGlobalAliases = {

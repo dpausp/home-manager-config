@@ -1,1 +1,4 @@
-{ description = "A placeholder"; outputs = inputs: {}; }
+{
+  description = "A placeholder";
+  outputs = inputs: { };
+}

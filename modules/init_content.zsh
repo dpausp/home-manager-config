@@ -10,30 +10,9 @@ bindkey -M viins '^N' _expand_alias
 bindkey -M viins '^[^?' backward-kill-word
 bindkey -M viins '\e\C-h' backward-kill-word
 
-source ~/.keychain/`hostname`-sh &> /dev/null
-
+# Navi widget to Alt-F to not interfere with default zellij ALT-G
 bindkey -M viins '^f' _navi_widget
 bindkey -M vicmd '^f' _navi_widget
-
-# pretty json output with formatting, highlighting (by jq) and line numbers (by bat)
-function jat { jq '.' -C < "$1" | bat }
-
-# interactively find a PID from verbose ps output and print it
-function fpid { ps aux | fzf -m -q "$@" | awk '{ print $2 }' }
-
-# nix search with json output and jq filtering, can be piped to jid for interactive filtering
-function niss {
-  search=$1
-  shift
-  nix search u --json $search | jq "$@"
-}
-
-function ssht { ssh -t $1 'tmux attach || tmux -2' }
-
-# run commands via SSH like: RUN="program opt1" zsh
-# http://superuser.com/a/790681
-
-eval "$RUN"
 
 export ZAQ_PREFIXES=(
   '[^ ]#pip install( [^ ]##)# -[^ -]#'
@@ -46,3 +25,9 @@ export ZAQ_PREFIXES=(
 )
 export KEYTIMEOUT=2
 source ~/.zshrc.local
+
+# run commands via SSH like: RUN="program opt1" zsh
+# http://superuser.com/a/790681
+eval "$RUN"
+
+

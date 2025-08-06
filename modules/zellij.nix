@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   programs.zellij = {
@@ -96,7 +101,7 @@
             bind "Ctrl f" { PageScrollDown; }
         }
     }
-    
+
     mouse_mode true
     copy_command "pbcopy"
     default_shell "zsh"
@@ -106,10 +111,10 @@
   programs.zsh = {
     shellAliases = {
       za = "zellij attach";
-      zl = "zellij list-sessions"; 
+      zl = "zellij list-sessions";
       zk = "zellij kill-session zellij $SESSION_NAME";
     };
-    
+
     initContent = ''
       # Zellij equivalent of ssht function from tmux config
       function zssh { ssh -t $1 'zellij attach || zellij' }
