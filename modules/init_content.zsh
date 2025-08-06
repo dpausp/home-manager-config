@@ -1,5 +1,5 @@
 # disable hosts completion because I use /etc/hosts to block many unwanted sites that would appear as completions without that setting
-zstyle ':completion:*:*:*' hosts off
+zstyle ':completion:*:hosts' hosts false
 
 bindkey -M viins '^[.' insert-last-word # Alt-.
 bindkey -M vicmd '^[.' insert-last-word # Alt-.

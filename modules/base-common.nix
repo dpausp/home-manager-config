@@ -63,6 +63,7 @@ in
     shellcheck
     socat
     sqlite
+    statix
     sshuttle
     tailscale
     thefuck
