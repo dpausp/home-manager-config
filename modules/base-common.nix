@@ -554,7 +554,8 @@ in
       x = "git annex";
       # Nix
       hm = "home-manager";
-      hms = "home-manager switch";
+      hms = "(cd ~ && nix flake update hm-config && home-manager switch)";
+      hb = "(cd ~ && nix flake update hm-config && home-manager build)";
       n = "nir";
       nib = "nix-build";
       nis = "nix search u";
