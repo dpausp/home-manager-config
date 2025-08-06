@@ -300,6 +300,7 @@ in
   ];
   programs.bat.enable = true;
   programs.broot.enable = true;
+  programs.carapace.enable = true;
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 

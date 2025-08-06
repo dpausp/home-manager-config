@@ -48,11 +48,11 @@ with builtins;
   programs.nushell = {
     enable = true;
     package = pkgs-unstable.nushell;
-    extraConfig = ''
-      $env.config = {
-        edit_mode: vi
-      }
-    '';
+    configFile.source = ./config.nu;
+  };
+
+  programs.fish = {
+    enable = true;
   };
 
   programs.tmux.extraConfig = ''
