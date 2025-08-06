@@ -572,6 +572,7 @@ in
       fu = "fuck";
       h = "http";
       hs = "https";
+      pate = "pbpaste | tee";
       newest_file = "ls -1t | head -n1";
       pstat = "python -mpstats";
       p = "bat -pp";
