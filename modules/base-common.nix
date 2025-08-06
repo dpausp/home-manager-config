@@ -38,7 +38,7 @@ in
     inetutils
     ipcalc
     jid
-    lnavGit
+    #lnavGit
     magic-wormhole
     mailutils
     mosh
