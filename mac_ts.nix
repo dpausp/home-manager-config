@@ -9,6 +9,7 @@ with builtins;
     modules/dev.nix
     modules/graphical.nix
     modules/mac.nix
+    modules/neovim.nix
     modules/nixdev.nix
     modules/pin-flakes.nix
     modules/pythondev.nix
