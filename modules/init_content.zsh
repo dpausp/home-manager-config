@@ -15,8 +15,6 @@ source ~/.keychain/`hostname`-sh &> /dev/null
 bindkey -M viins '^f' _navi_widget
 bindkey -M vicmd '^f' _navi_widget
 
-function dcd { cd "$(nix path-info "$1")" }
-
 # pretty json output with formatting, highlighting (by jq) and line numbers (by bat)
 function jat { jq '.' -C < "$1" | bat }
 

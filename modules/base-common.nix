@@ -18,6 +18,7 @@ in
     doggo
     duf
     dust
+    dcd
     dvimr
     entr
     fd
@@ -146,6 +147,14 @@ in
         text = ''
           if [[ $# -eq 0 ]]; then exit 1; fi
           vr "$(nix path-info "$@")"
+        '';
+      };
+
+      dcd = pkgs.writeShellApplication {
+        name = "dcd";
+        text = ''
+          if [[ $# -eq 0 ]]; then exit 1; fi
+          cd "$(nix path-info "$@")"
         '';
       };
 
