@@ -525,11 +525,11 @@ in
       gco = "git checkout";
       gcob = "git checkout -b";
       gcm = "git commit -m";
-      gf = "git fetch";
+      gf = "git fetch -v";
+      gfa = "git fetch --all -v";
       ggs = gitls;
       gi = "git diff";
       gica = "git diff --cached";
-      gita = "git add";
       gitaww = "git diff -w --no-color | git apply --cached --ignore-whitespace"; # add changes, ignore whitespace
       gitb = "git bisect";
       gitc = "git commit";
@@ -547,6 +547,7 @@ in
       gpb = "git-push-branch";
       grbc = "git rebase --continue";
       grbi = "git rebase -i";
+      grv = "git remote -v";
       gsh = "git show";
       gsta = "git stash push";
       gstp = "git stash pop";
