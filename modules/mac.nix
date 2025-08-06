@@ -25,7 +25,10 @@ in
     procps
     sqlitebrowser
     sshfs-fuse
+    topgrade
     uv
+    wget
+    zoxide
   ];
 
   home.sessionVariables = {
