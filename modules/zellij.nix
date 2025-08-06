@@ -1,10 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  home.packages = with pkgs; [
-    zellij
-  ];
-
   programs.zellij = {
     enable = true;
   };
@@ -13,7 +9,10 @@
   xdg.configFile."zellij/config.kdl".text = ''
     keybinds {
         
+        // Collides with fzf
         unbind "Ctrl t"
+        // Collides with navi
+        unbind "Ctrl g"
 
         normal {
             bind "Ctrl e" { SwitchToMode "tmux"; }
@@ -25,6 +24,8 @@
             bind "b" { GoToPreviousTab; SwitchToMode "Normal"; }
             bind "n" { GoToNextTab; SwitchToMode "Normal"; }
             bind "c" { NewTab; SwitchToMode "Normal"; }
+
+            bind "f" { ToggleFloatingPanes; }
             
             bind "1" { GoToTab 1; }
             bind "2" { GoToTab 2; }
@@ -37,11 +38,13 @@
             bind "9" { GoToTab 9; }
             bind "0" { GoToTab 10; }
 
-            // Pane navigation (existing)
-            bind "h" { MoveFocus "Left"; }
-            bind "j" { MoveFocus "Down"; }
-            bind "k" { MoveFocus "Up"; }
-            bind "l" { MoveFocus "Right"; }
+            bind "h" { TogglePaneFrames; }
+            bind "l" { NextSwapLayout; SwitchToMode "Normal"; }
+
+            bind "g" { MoveFocus "Up"; }
+            bind "n" { MoveFocus "Left"; }
+            bind "r" { MoveFocus "Down"; }
+            bind "t" { MoveFocus "Right"; }
             
             // Pane splitting (new - tmux style)
             bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }     // horizontal split (pane below)
@@ -61,16 +64,17 @@
             bind "p" { SwitchToMode "Normal"; }                      // paste (zellij handles this differently)
             
             // Pane resizing (new)
-            bind "H" { Resize "Increase Left"; }
-            bind "J" { Resize "Increase Down"; }
-            bind "K" { Resize "Increase Up"; }
-            bind "L" { Resize "Increase Right"; }
-            bind "Ctrl h" { Resize "Decrease Right"; }
-            bind "Ctrl j" { Resize "Decrease Down"; }
-            bind "Ctrl k" { Resize "Decrease Up"; }
-            bind "Ctrl l" { Resize "Decrease Left"; }
+            bind "G" { Resize "Increase Up"; }
+            bind "N" { Resize "Increase Left"; }
+            bind "R" { Resize "Increase Down"; }
+            bind "T" { Resize "Increase Right"; }
+            bind "Ctrl g" { Resize "Decrease Left"; }
+            bind "Ctrl n" { Resize "Decrease Down"; }
+            bind "Ctrl r" { Resize "Decrease Up"; }
+            bind "Ctrl t" { Resize "Decrease Right"; }
             
             // Session management (existing and new)
+            bind "d" { Detach; }
             bind "F12" { Detach; }
             bind "Ctrl c" { SwitchToMode "Normal"; }
             bind "q" { SwitchToMode "Normal"; }
@@ -103,7 +107,7 @@
     shellAliases = {
       za = "zellij attach";
       zl = "zellij list-sessions"; 
-      zk = "zellij kill-session";
+      zk = "zellij kill-session zellij $SESSION_NAME";
     };
     
     initContent = ''
