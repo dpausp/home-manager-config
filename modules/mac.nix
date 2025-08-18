@@ -15,10 +15,12 @@ in
 {
   home.packages = with pkgs; [
     age
+    autossh
     cachix
     cacert
     devenv.packages.aarch64-darwin.devenv
     dmenu
+    ffmpeg
     gawk
     git
     git-lfs

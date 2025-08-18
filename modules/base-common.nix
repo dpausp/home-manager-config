@@ -53,6 +53,7 @@ in
       mtr
       nixfmt-tree
       nmap
+      ntfy-sh
       nvd
       pastel
       pipe-rename
@@ -85,6 +86,7 @@ in
       findUpCmd
       fpid
       gen-passphrase
+      hlepCmd
       inCmd
       jat
       n
@@ -92,6 +94,7 @@ in
       outCmd
       rwhich
       ssht
+      sshz
       vimr
     ];
 
@@ -202,6 +205,56 @@ in
         '';
       };
 
+      hlepCmd = pkgs.writeShellApplication {
+        name = "hlep";
+        text = ''
+          if [[ $# -eq 1 ]]; then
+            cmd="$1"
+
+            # Versuche --help
+            if "$cmd" --help &> /dev/null; then
+              "$cmd" --help | bat
+              return
+            fi
+
+            # Versuche -h
+            if "$cmd" -h &> /dev/null; then
+              "$cmd" -h | bat
+              return
+            fi
+
+            # Versuche man
+            if man "$cmd" &> /dev/null; then
+              man "$cmd"
+              return
+            fi
+
+            echo "Helpless: $cmd."
+          else
+            echo "Usage: help <command>"
+          fi
+        '';
+      };
+
+      nbCmd = pkgs.writeTclApplication {
+        name = "nb";
+        text = ''
+          if {$argc == 0} {
+              puts "Usage: $argv0 pkg1 pkg2 ..."
+              exit 1
+          }
+
+          set packages {}
+          foreach pkg $argv {
+              lappend packages "nixpkgs#$pkg"
+          }
+
+          set command "nom build [join $packages]"
+
+          eval $command
+          '';
+          };
+
       fpid = pkgs.writeShellApplication {
         name = "fpid";
         text = ''
@@ -210,7 +263,7 @@ in
       };
 
       gen-passphrase = pkgs.writeShellApplication {
-        name = "genpass";
+        name = "sphrase";
         runtimeInputs = with pkgs; [ diceware ];
         text = ''
           for _ in {1..4}; do
@@ -259,9 +312,12 @@ in
       n = pkgs.writeShellApplication {
         name = "n";
         text = ''
-          nom run nixpkgs#"$1"
+          pkg=$1
+          shift
+          nom run nixpkgs#"$pkg"
         '';
       };
+
 
       niss = pkgs.writeShellApplication {
         name = "niss";
@@ -325,6 +381,13 @@ in
         '';
       };
 
+      sshz = pkgs.writeShellApplication {
+        name = "sshz";
+        text = ''
+          ssh -t "$1" 'zellij attach --create default'
+          '';
+      };
+
       vim-myplugin = pkgs.vimUtils.buildVimPlugin {
         name = "vim-myplugin";
         src = ./vim-myplugin;
@@ -380,6 +443,7 @@ in
     };
     eza.enable = true;
     fzf.enable = true;
+    zoxide.enable = true;
   };
 
   programs.git = {
