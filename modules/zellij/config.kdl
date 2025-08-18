@@ -1,0 +1,108 @@
+keybinds {
+
+    shared {
+        // f Collides with fzf
+        unbind "Alt a" "Alt b" "Alt c" "Alt d" "Alt e" "Alt f" "Alt g" 
+        unbind "Alt h" "Alt i" "Alt j" "Alt k" "Alt l" "Alt m" "Alt n"
+        unbind "Alt o" "Alt p" "Alt q" "Alt r" "Alt s" "Alt t" "Alt u"
+        unbind "Alt v" "Alt w" "Alt x" "Alt y" "Alt z"
+        
+        // Auch die Pfeiltasten
+        unbind "Alt Left" "Alt Right" "Alt Up" "Alt Down"
+        
+        // Und Zahlen
+        unbind "Alt 1" "Alt 2" "Alt 3" "Alt 4" "Alt 5"
+        unbind "Alt 6" "Alt 7" "Alt 8" "Alt 9" "Alt 0"
+
+        // collides with fzf file search
+        unbind "Ctrl t"
+
+        // why is quitting easier than detaching? 
+        bind "Ctrl q" { Detach; }
+    }
+    
+    normal {
+        bind "Ctrl b" { SwitchToMode "tab"; }
+        bind "Ctrl e" { SwitchToMode "tmux"; }
+    }
+    tmux {
+        // from default 
+        bind "[" { SwitchToMode "Scroll"; }
+        bind "Ctrl e" { SwitchToMode "Normal"; }
+        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "c" { NewTab; SwitchToMode "Normal"; }
+        bind "," { SwitchToMode "RenameTab"; }
+        bind "p" { GoToPreviousTab; SwitchToMode "Normal"; }
+        bind "n" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "o" { FocusNextPane; }
+        bind "d" { Detach; }
+        bind "F12" { Detach; }
+        bind "Space" { NextSwapLayout; }
+        bind "x" { CloseFocus; SwitchToMode "Normal"; }
+
+        bind "F8" { MoveFocus "Up"; }
+        bind "7" { MoveFocus "Left"; }
+        bind "8" { MoveFocus "Down"; }
+        bind "9" { MoveFocus "Right"; }
+
+        bind "k" { MoveFocus "Up"; }
+        bind "l" { MoveFocus "Left"; }
+        bind "j" { MoveFocus "Down"; }
+        bind "h" { MoveFocus "Right"; }
+
+        // Tab navigation (existing)
+        bind "b" { GoToPreviousTab; SwitchToMode "Normal"; }
+        bind "n" { GoToNextTab; SwitchToMode "Normal"; }
+        bind "c" { NewTab; SwitchToMode "Normal"; }
+
+        bind "f" { ToggleFloatingPanes; }
+        
+        bind "1" { GoToTab 1; }
+        bind "2" { GoToTab 2; }
+        bind "3" { GoToTab 3; }
+        bind "4" { GoToTab 4; }
+        bind "5" { GoToTab 5; }
+        bind "6" { GoToTab 6; }
+
+        bind ";" { TogglePaneFrames; }
+
+        bind "g" { MoveFocus "Up"; }
+        bind "r" { MoveFocus "Down"; }
+        
+        // Pane splitting (new - tmux style)
+        bind "-" { NewPane "Down"; SwitchToMode "Normal"; }      // alternative horizontal split
+        bind "|" { NewPane "Right"; SwitchToMode "Normal"; }     // alternative vertical split
+        bind "s" { NewPane "Down"; SwitchToMode "Normal"; }      // alternative horizontal split
+        bind "v" { NewPane "Right"; SwitchToMode "Normal"; }     // alternative vertical split
+        
+        // Pane management (new)
+        bind "x" { CloseFocus; SwitchToMode "Normal"; }          // close current pane
+        bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; } // zoom pane
+        bind "Space" { NextSwapLayout; SwitchToMode "Normal"; }   // cycle layouts
+        
+        // Copy/Paste mode (existing and new)
+        bind "Esc" { SwitchToMode "EnterSearch"; }
+        
+        // Pane resizing (new)
+        bind "F8" { Resize "Increase Up"; }
+        bind "7" { Resize "Increase Left"; }
+        bind "8" { Resize "Increase Down"; }
+        bind "9" { Resize "Increase Right"; }
+        bind "Ctrl F8" { Resize "Decrease Left"; }
+        bind "Ctrl 7" { Resize "Decrease Down"; }
+        bind "Ctrl 8" { Resize "Decrease Up"; }
+        bind "Ctrl 9" { Resize "Decrease Right"; }
+        
+        // Session management (existing and new)
+
+        bind "d" { Detach; }
+        bind "F12" { Detach; }
+        bind "Ctrl c" { SwitchToMode "Normal"; }
+        bind "q" { SwitchToMode "Normal"; }
+
+    }
+
+}
+
+copy_command "pbcopy"
+default_shell "zsh"

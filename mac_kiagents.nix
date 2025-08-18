@@ -9,16 +9,15 @@ with builtins;
 
 {
   imports = [
-    modules/ai.nix
     modules/base-common.nix
     modules/dev.nix
     modules/mac.nix
-    modules/neovim.nix
+    modules/neovim
     modules/nixdev.nix
     modules/pin-flakes.nix
     modules/pythondev.nix
-    modules/zellij.nix
-    modules/zsh.nix
+    modules/zsh
+    modules/zsh/smol.nix
   ];
 
   home = {

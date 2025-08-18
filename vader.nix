@@ -24,7 +24,8 @@ in
     modules/nixos-x11.nix
     modules/nixos.nix
     modules/pythondev.nix
-    modules/zsh.nix
+    modules/zsh
+    modules/zsh/standard.nix
   ];
 
   home.packages = with pkgs; [

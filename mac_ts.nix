@@ -14,12 +14,13 @@ with builtins;
     modules/dev.nix
     modules/graphical.nix
     modules/mac.nix
-    modules/neovim.nix
+    modules/neovim
     modules/nixdev.nix
     modules/pin-flakes.nix
     modules/pythondev.nix
-    modules/zellij.nix
-    modules/zsh.nix
+    modules/zellij
+    modules/zsh
+    modules/zsh/standard.nix
   ];
 
   home = {
