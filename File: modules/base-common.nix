@@ -12,9 +12,8 @@ let
   home = config.home.homeDirectory;
 in
 {
-  home.packages =
-    with pkgs;
-    [
+  home = {
+    packages = with pkgs; [
       amber
       apg
       bc
@@ -78,8 +77,7 @@ in
       unzip
       wrk
       zip
-    ]
-    ++ [
+    ] ++ [
       dbat
       dcd
       dvimr
@@ -98,14 +96,15 @@ in
       vimr
     ];
 
-  home.enableNixpkgsReleaseCheck = true;
-  home.sessionPath = [
-    "$HOME/.local/bin"
-  ];
-  home.sessionVariables = {
-    DELTA_PAGER = "bat";
-    LC_MESSAGES = "C";
-    YSU_HARDCORE = "0";
+    enableNixpkgsReleaseCheck = true;
+    sessionPath = [
+      "$HOME/.local/bin"
+    ];
+    sessionVariables = {
+      DELTA_PAGER = "bat";
+      LC_MESSAGES = "C";
+      YSU_HARDCORE = "0";
+    };
   };
 
   nixpkgs.overlays = [
