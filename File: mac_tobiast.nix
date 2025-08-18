@@ -1,4 +1,9 @@
 {
+  config,
+  pkgs,
+  pkgs-unstable,
+  devenv,
+  lib,
   ...
 }:
 
