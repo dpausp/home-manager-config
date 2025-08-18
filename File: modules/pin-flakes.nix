@@ -2,7 +2,7 @@
   config,
   pkgs,
   nixpkgs,
-  nixpkgs-stable,
+  nixpkgs-unstable,
   home-manager,
   lib,
   ...
@@ -28,6 +28,6 @@ with builtins;
   nix.registry = {
     nixpkgs.flake = nixpkgs;
     n.flake = nixpkgs;
-    nixpkgs-stable.flake = nixpkgs-stable;
+    u.flake = nixpkgs-unstable;
   };
 }

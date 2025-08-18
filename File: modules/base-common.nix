@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  pkgs-stable,
+  pkgs-unstable,
   ...
 }:
 
@@ -12,8 +12,9 @@ let
   home = config.home.homeDirectory;
 in
 {
-  home = {
-    packages = with pkgs; [
+  home.packages =
+    with pkgs;
+    [
       amber
       apg
       bc
@@ -22,7 +23,7 @@ in
       dhall
       diceware
       doggo
-      pkgs-stable.doit # macfsevents 0.8.4 build error
+      pkgs-unstable.doit # macfsevents 0.8.4 build error
       duf
       dust
       entr
@@ -68,16 +69,17 @@ in
       sqlite
       statix
       sshuttle
-      pkgs-stable.tailscale
+      pkgs-unstable.tailscale
       statix
-      tcl
+      thefuck
       thumbs
       tokei
       tree
       unzip
       wrk
       zip
-    ] ++ [
+    ]
+    ++ [
       dbat
       dcd
       dvimr
@@ -96,31 +98,30 @@ in
       vimr
     ];
 
-    enableNixpkgsReleaseCheck = true;
-    sessionPath = [
-      "$HOME/.local/bin"
-    ];
-    sessionVariables = {
-      DELTA_PAGER = "bat";
-      LC_MESSAGES = "C";
-      YSU_HARDCORE = "0";
-    };
+  home.enableNixpkgsReleaseCheck = true;
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+  home.sessionVariables = {
+    DELTA_PAGER = "bat";
+    LC_MESSAGES = "C";
   };
 
   nixpkgs.overlays = [
     (self: super: {
+      inherit (pkgs-unstable) delta lnav;
       lnavGit =
         let
           rev = "a49c37e0af4392d6dd78b03efb5e78bcbeebc744";
         in
-        pkgs.lnav.overrideAttrs (old: {
+        pkgs-unstable.lnav.overrideAttrs (old: {
           version = "2025-06-05-${builtins.substring 0 7 rev}";
           name = "lnav-unstable";
           src = pkgs.fetchFromGitHub {
             owner = "tstack";
             repo = "lnav";
             inherit rev;
-            hash = "sha256-CSt33LfKwhV6fzEuRI3t/2avkMfBAsrCgw75cbJ5gqM=";
+            sha256 = "sha256-CSt33LfKwhV6fzEuRI3t/2avkMfBAsrCgw75cbJ5gqM=";
           };
           patches = [ ];
         });
@@ -134,7 +135,7 @@ in
             owner = "laktak";
             repo = "extrakto";
             rev = "4179acea28f69853fda9ab15c7564cd73757856c";
-            hash = "sha256-BfQkVxVwT+hjb2T13H1EPKXS+W5FIJyQkR+Iz9079FU=";
+            sha256 = "sha256-BfQkVxVwT+hjb2T13H1EPKXS+W5FIJyQkR+Iz9079FU=";
           };
           postInstall = ''
             for f in extrakto.sh open.sh; do
@@ -157,7 +158,7 @@ in
             owner = "tmux-plugins";
             repo = "tmux-sensible";
             rev = "25cb91f42d020f675bb0a2ce3fbd3a5d96119efa";
-            hash = "sha256-sw9g1Yzmv2fdZFLJSGhx1tatQ+TtjDYNZI5uny0+5Hg=";
+            sha256 = "sha256-sw9g1Yzmv2fdZFLJSGhx1tatQ+TtjDYNZI5uny0+5Hg=";
           };
         });
       };
@@ -262,7 +263,7 @@ in
       };
 
       gen-passphrase = pkgs.writeShellApplication {
-        name = "sphrase";
+        name = "genpass";
         runtimeInputs = with pkgs; [ diceware ];
         text = ''
           for _ in {1..4}; do
@@ -301,7 +302,7 @@ in
         '';
       };
 
-      nagelfar = pkgs-stable.nagelfar.overrideAttrs (prev: {
+      nagelfar = super.nagelfar.overrideAttrs (prev: {
         installPhase = prev.installPhase + ''
           mkdir $out/lib
           cp $src/syntax*.tcl $out/lib/
@@ -311,9 +312,7 @@ in
       n = pkgs.writeShellApplication {
         name = "n";
         text = ''
-          pkg=$1
-          shift
-          nom run nixpkgs#"$pkg"
+          nom run nixpkgs#"$1"
         '';
       };
 
@@ -357,7 +356,7 @@ in
           owner = "palortoff";
           repo = "pass-extension-tail";
           rev = "784e3e17edd8de4bd3493b75e19165cc5e80c5a0";
-          hash = "sha256-1irxp0jygjb5yn2jjg7hf25b2499d91crznq2yfs3iz0h9dxf8s7";
+          sha256 = "sha256-1irxp0jygjb5yn2jjg7hf25b2499d91crznq2yfs3iz0h9dxf8s7";
         };
       };
 
@@ -413,7 +412,7 @@ in
           allowSubstitutes = true;
           preferLocalBuild = false;
           text = ''
-            #!${self.tcl}/bin/tclsh
+            #!${self.tcl-8_6}/bin/tclsh
 
             ${text}
           '';

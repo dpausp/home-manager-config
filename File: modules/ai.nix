@@ -1,16 +1,17 @@
 {
   config,
   pkgs,
-  pkgs-stable,
+  pkgs-unstable,
+  devenv,
+  lib,
   ...
 }:
 
 with builtins;
 
 {
-  home.packages = with pkgs; [
-    python3Packages.huggingface-hub
-    pkgs-stable.ollama
+  home.packages = with pkgs-unstable; [
+    ollama
   ];
 
   programs.zsh.shellAliases = {
