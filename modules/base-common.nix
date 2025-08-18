@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  pkgs-unstable,
+  pkgs-stable,
   ...
 }:
 
@@ -23,6 +23,7 @@ in
       dhall
       diceware
       doggo
+      pkgs-stable.doit # macfsevents 0.8.4 build error
       duf
       dust
       entr
@@ -67,9 +68,9 @@ in
       sqlite
       statix
       sshuttle
-      tailscale
+      pkgs-stable.tailscale
       statix
-      thefuck
+      tcl
       thumbs
       tokei
       tree
@@ -101,17 +102,16 @@ in
   home.sessionVariables = {
     DELTA_PAGER = "bat";
     LC_MESSAGES = "C";
+    YSU_HARDCORE = "0";
   };
 
   nixpkgs.overlays = [
     (self: super: {
-      inherit (pkgs-unstable) delta lnav;
-
       lnavGit =
         let
           rev = "a49c37e0af4392d6dd78b03efb5e78bcbeebc744";
         in
-        pkgs-unstable.lnav.overrideAttrs (old: {
+        pkgs.lnav.overrideAttrs (old: {
           version = "2025-06-05-${builtins.substring 0 7 rev}";
           name = "lnav-unstable";
           src = pkgs.fetchFromGitHub {
@@ -132,7 +132,7 @@ in
             owner = "laktak";
             repo = "extrakto";
             rev = "4179acea28f69853fda9ab15c7564cd73757856c";
-            sha256 = "BfQkVxVwT+hjb2T13H1EPKXS+W5FIJyQkR+Iz9079FU=";
+            hash = "sha256-BfQkVxVwT+hjb2T13H1EPKXS+W5FIJyQkR+Iz9079FU=";
           };
           postInstall = ''
             for f in extrakto.sh open.sh; do
@@ -155,7 +155,7 @@ in
             owner = "tmux-plugins";
             repo = "tmux-sensible";
             rev = "25cb91f42d020f675bb0a2ce3fbd3a5d96119efa";
-            sha256 = "sw9g1Yzmv2fdZFLJSGhx1tatQ+TtjDYNZI5uny0+5Hg=";
+            hash = "sha256-sw9g1Yzmv2fdZFLJSGhx1tatQ+TtjDYNZI5uny0+5Hg=";
           };
         });
       };
@@ -249,7 +249,7 @@ in
         '';
       };
 
-      nagelfar = super.nagelfar.overrideAttrs (prev: {
+      nagelfar = pkgs-stable.nagelfar.overrideAttrs (prev: {
         installPhase = prev.installPhase + ''
           mkdir $out/lib
           cp $src/syntax*.tcl $out/lib/
@@ -351,7 +351,7 @@ in
           allowSubstitutes = true;
           preferLocalBuild = false;
           text = ''
-            #!${self.tcl-8_6}/bin/tclsh
+            #!${self.tcl}/bin/tclsh
 
             ${text}
           '';
@@ -475,7 +475,7 @@ in
 
   programs.less = {
     enable = true;
-    keys = ''
+    config = ''
       #env
       LESS = -j10 -R
     '';

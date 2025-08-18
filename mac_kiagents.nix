@@ -1,8 +1,6 @@
 {
   config,
   pkgs,
-  pkgs-unstable,
-  devenv,
   lib,
   ...
 }:
@@ -28,11 +26,6 @@ with builtins;
     stateVersion = "25.05";
     homeDirectory = "/Users/rovodev";
   };
-
-  nixpkgs.overlays = [
-    (self: super: {
-    })
-  ];
 
   programs.zsh = {
   };

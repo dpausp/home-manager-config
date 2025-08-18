@@ -1,7 +1,5 @@
 {
-  config,
   pkgs,
-  devenv,
   pkgs-unstable,
   lib,
   ...
@@ -37,7 +35,6 @@ in
     cawbird
     chromium
     clearlooks-phenix
-    devenv.packages.x86_64-linux.devenv
     digikam
     dmenu
     fileschanged

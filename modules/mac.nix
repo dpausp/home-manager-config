@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  pkgs-unstable,
   devenv,
   lib,
   ...
@@ -52,7 +51,6 @@ in
     flags = [
       "--disable-up-arrow"
     ];
-    package = pkgs-unstable.atuin;
   };
 
   programs.feh.enable = true;
@@ -63,7 +61,6 @@ in
 
   programs.nushell = {
     enable = true;
-    package = pkgs-unstable.nushell;
     configFile.source = ./config.nu;
   };
 
