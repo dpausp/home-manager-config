@@ -31,7 +31,6 @@ in
     procps
     sqlitebrowser
     sshfs-fuse
-    topgrade
     uv
     wget
     xonsh

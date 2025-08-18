@@ -46,6 +46,39 @@ with builtins;
     })
   ];
 
+  programs.git.extraConfig.safe.directory = "/Users/rovodev/*";
+
+  programs.topgrade = {
+    enable = true;
+    settings = {
+
+      pre_commands = {
+        "Update home manager inputs" = "nix flake update ~";
+      };
+
+      commands = {
+        "Remove profile versions older than 30d" = "nix profile wipe-history --older-than 7d";
+        "Run garbage collection on Nix store" = "nix-collect-garbage";
+      };
+
+      misc = {
+        assume_yes = true;
+        set_title = false;
+        cleanup = true;
+      };
+
+      disable = [
+        "nix"
+      ];
+
+      git = {
+        repos = [
+        ];
+        pull_predefined = false;
+      };
+    };
+  };
+
   programs.zsh = {
     cdpath = [
       "/Users/ts/git"
