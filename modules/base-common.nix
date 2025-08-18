@@ -516,6 +516,7 @@ in
     };
 
     ignores = [
+      ".aicodingrc"
       ".aider.chat.history.md"
       ".aider.input.history"
       ".aider.tags.cache.v4/"
@@ -527,6 +528,7 @@ in
       ".pydevproject"
       ".runrc"
       ".settings"
+      ".updaterc"
       ".vscode"
       "venv"
     ];
