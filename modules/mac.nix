@@ -74,6 +74,10 @@ in
     vmap <C-c> y:call system("pbcopy", getreg("\""))<CR>
   '';
 
+  programs.wezterm = {
+    enable = true;
+  };
+
   programs.zathura.enable = true;
 
   programs.zsh = {
