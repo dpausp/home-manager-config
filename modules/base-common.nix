@@ -562,44 +562,7 @@ in
     };
   };
 
-  programs.starship = {
-    enable = true;
-    settings = {
-      directory = {
-        truncation_length = 5;
-        truncate_to_repo = false;
-        truncation_symbol = ".../";
-        before_repo_root_style = "#333333";
-      };
-
-      git_commit = {
-        disabled = false;
-        format = "on [$hash]($style) ";
-        style = "bold green";
-        only_detached = false;
-        tag_disabled = false;
-        tag_symbol = " tag ";
-        commit_hash_length = 7;
-      };
-
-      nix_shell = {
-        pure_msg = "pure";
-        impure_msg = "";
-      };
-      shell = {
-        disabled = false;
-        style = "yellow";
-      };
-      status = {
-        disabled = false;
-        map_symbol = true;
-        format = "[$status $common_meaning$signal_name]($style) ";
-      };
-      username = {
-        show_always = true;
-      };
-    };
-  };
+  programs.starship = import ./starship.nix;
 
   programs.tealdeer.enable = true;
 
