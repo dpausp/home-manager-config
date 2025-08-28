@@ -38,9 +38,9 @@ with builtins;
 
       moft = pkgs.writeShellApplication {
         name = "moft";
-        # Connect with mosh and attach/create tmux session, like `ssht`
+        # Connect with mosh and attach/create zellij default session, like `ssht`
         text = ''
-          mosh "$1".fe -- bash -c "tmux attach || tmux"
+          mosh "$1".fe -- bash -c "zellij attach --create default"
         '';
       };
     })
