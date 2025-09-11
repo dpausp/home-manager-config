@@ -90,6 +90,7 @@ in
       inCmd
       jat
       n
+      nrun
       niss
       outCmd
       rwhich
@@ -309,8 +310,8 @@ in
         '';
       });
 
-      n = pkgs.writeShellApplication {
-        name = "n";
+      nrun = pkgs.writeShellApplication {
+        name = "nrun";
         text = ''
           pkg=$1
           shift
@@ -318,6 +319,15 @@ in
         '';
       };
 
+
+      n = pkgs.writeShellApplication {
+        name = "n";
+        text = ''
+          pkg=$1
+          shift
+          nom shell nixpkgs#"$pkg"
+          '';
+      };
 
       niss = pkgs.writeShellApplication {
         name = "niss";
