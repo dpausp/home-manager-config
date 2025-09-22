@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
+  devenv,
   lib,
   ...
 }:
@@ -9,18 +11,18 @@ with builtins;
 
 {
   imports = [
-    modules/ai.nix
-    modules/base-common.nix
-    modules/dev.nix
-    modules/graphical.nix
-    modules/mac.nix
-    modules/neovim
-    modules/nixdev.nix
-    modules/pin-flakes.nix
-    modules/pythondev.nix
-    modules/zellij
-    modules/zsh
-    modules/zsh/standard.nix
+    ./modules/ai.nix
+    ./modules/base-common.nix
+    ./modules/dev.nix
+    ./modules/graphical.nix
+    ./modules/mac.nix
+    ./modules/neovim
+    ./modules/nixdev.nix
+    ./modules/pin-flakes.nix
+    ./modules/pythondev.nix
+    ./modules/zellij
+    ./modules/zsh
+    ./modules/zsh/standard.nix
   ];
 
   home = {
@@ -38,9 +40,9 @@ with builtins;
 
       moft = pkgs.writeShellApplication {
         name = "moft";
-        # Connect with mosh and attach/create tmux session, like `ssht`
+        # Connect with mosh and attach/create zellij default session, like `ssht`
         text = ''
-          mosh "$1".fe -- bash -c "tmux attach || tmux"
+          mosh "$1".fe -- bash -c "zellij attach --create default"
         '';
       };
     })
