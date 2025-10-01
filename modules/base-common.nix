@@ -522,6 +522,7 @@ in
 
       receive = {
         fsckObjects = true;
+        denyCurrentBranch = "updateInstead";
       };
     };
 
