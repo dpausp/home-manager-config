@@ -42,19 +42,20 @@ local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', builtin.find_files)
 vim.keymap.set('n', '<leader>g', builtin.live_grep)
 
--- LSP setup
-local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
--- Python LSP
-lspconfig.pylsp.setup({
-  capabilities = capabilities,
-})
-
--- Nix LSP
-lspconfig.nil_ls.setup({
-  capabilities = capabilities,
-})
+ -- LSP setup
+ local capabilities = require('cmp_nvim_lsp').default_capabilities()
+ 
+ -- Python LSP
+ vim.lsp.config.pylsp = {
+   capabilities = capabilities,
+ }
+ vim.lsp.enable('pylsp')
+ 
+ -- Nix LSP
+ vim.lsp.config.nil_ls = {
+   capabilities = capabilities,
+ }
+ vim.lsp.enable('nil_ls')
 
 -- Basic LSP keybindings
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -116,21 +117,19 @@ vim.api.nvim_create_autocmd("FileType", {
 -- 1. Lade schemastore, um automatisch das pyproject.json Schema zu nutzen
 local schemastore = require('schemastore')
 
--- 2. Konfiguriere yamlls (für TOML-Dateien mit JSON-Schema)
-local lspconfig = require('lspconfig')
-lspconfig.yamlls.setup({
+ -- 2. Konfiguriere yamlls (für TOML-Dateien mit JSON-Schema)
+vim.lsp.config.yamlls = {
   settings = {
     yaml = {
-      -- Lade alle Schemas von schemastore.org
-      schemas = schemastore.json.schemas(),
-      -- Deaktiviere den eingebauten Schema-Store, weil wir unseren nutzen
+      schemas = vim.tbl_extend("force", schemastore.json.schemas(), {
+        ["file:///Users/rovodev/git/hm-config/modules/neovim/opencode-schema.json"] = "*.json",  -- Lokales opencode-Schema
+      }),
       schemaStore = { enable = false },
     },
-    -- Erlaube TOML-Dateien (obwohl es "yaml" heißt)
     filetypes = { "yaml", "yml", "json", "toml" },
   },
-  -- Optional: nur wenn du Probleme hast
   init_options = {
     provideFormatter = true,
   },
-})
+}
+ vim.lsp.enable('yamlls')
