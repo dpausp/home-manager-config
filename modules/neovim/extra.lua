@@ -56,6 +56,18 @@ vim.keymap.set('n', '<leader>g', builtin.live_grep)
    capabilities = capabilities,
  }
  vim.lsp.enable('nil_ls')
+ 
+ -- JSON LSP
+ vim.lsp.config.jsonls = {
+   capabilities = capabilities,
+   settings = {
+     json = {
+       schemas = require('schemastore').json.schemas(),
+       validate = { enable = true },
+     },
+   },
+ }
+ vim.lsp.enable('jsonls')
 
 -- Basic LSP keybindings
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -112,24 +124,21 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- === pyproject.toml: Schema + taplo Linting/Formatting ===
+-- JSON: 2 spaces
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "json",
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+  end,
+})
 
--- 1. Lade schemastore, um automatisch das pyproject.json Schema zu nutzen
-local schemastore = require('schemastore')
-
- -- 2. Konfiguriere yamlls (für TOML-Dateien mit JSON-Schema)
-vim.lsp.config.yamlls = {
-  settings = {
-    yaml = {
-      schemas = vim.tbl_extend("force", schemastore.json.schemas(), {
-        ["file:///Users/rovodev/git/hm-config/modules/neovim/opencode-schema.json"] = "*.json",  -- Lokales opencode-Schema
-      }),
-      schemaStore = { enable = false },
-    },
-    filetypes = { "yaml", "yml", "json", "toml" },
-  },
-  init_options = {
-    provideFormatter = true,
-  },
-}
- vim.lsp.enable('yamlls')
+-- JSON formatting with jq
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "json",
+  callback = function()
+    vim.keymap.set('n', '<leader>jf', function()
+      vim.cmd('%!jq .')
+    end, { buffer = true, desc = 'Format JSON with jq' })
+  end,
+})

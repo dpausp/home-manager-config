@@ -49,6 +49,9 @@
   home.packages = with pkgs; [
     nil # Nix LSP
     python3Packages.python-lsp-server # Python LSP
+    nodePackages.vscode-langservers-extracted # JSON LSP
+    nodePackages.prettier # JSON formatter
+    jq # JSON formatter/processor
     ripgrep # For telescope search
     taplo
   ];
