@@ -6,9 +6,9 @@
   ];
 
   home = {
-    username = builtins.getEnv "USER";
+    username = "rovodev";
     stateVersion = "25.05";
-    homeDirectory = builtins.getEnv "HOME";
+    homeDirectory = "/Users/rovodev";
   };
 
   # Minimal packages for testing
@@ -22,9 +22,4 @@
 
   programs.home-manager.enable = true;
   programs.git.enable = true;
-
-  # Enable flakes for this config
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-  };
 }

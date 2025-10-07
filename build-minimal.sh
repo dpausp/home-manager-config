@@ -25,14 +25,9 @@ cat > flake.nix << 'EOF'
   };
 
   outputs = { self, home-manager, nixpkgs }: {
-    homeConfigurations = 
-    let
-      system = if builtins.currentSystem == "aarch64-darwin" then "aarch64-darwin" else "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
+    homeConfigurations = {
       minimal = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+        pkgs = nixpkgs.legacyPackages.aarch64-darwin;
         modules = [ ./home-minimal.nix ];
       };
     };
