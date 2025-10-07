@@ -42,7 +42,6 @@ in
       hyperfine
       inCmd
       inetutils
-      ipcalc
       jid
       #lnavGit
       magic-wormhole
