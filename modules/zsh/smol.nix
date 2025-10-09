@@ -129,7 +129,7 @@ with builtins;
       F = "| fzf";
       V = "| vimr -";
       # From oh-my-zsh common-aliases
-      G = "| grep -F";  # literal string matching
+      G = "| fgrep";  # literal string matching
       J = "| jq";
       L = "| less";
       NE = "2> /dev/null";
