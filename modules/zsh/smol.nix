@@ -53,6 +53,10 @@ with builtins;
       # Nix
       nib = "nix-build";
       nis = "nix search n";
+      # Ripgrep variants
+      rg = "ripgrep";           # original bleibt
+      rp = "ripgrep --fixed-strings";  # "ripgrep-plain"
+      rnm = "ripgrep --no-magic";      # "ripgrep-no-magic"
       # other
       b = "bat";
       br = "broot";

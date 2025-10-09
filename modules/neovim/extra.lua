@@ -41,6 +41,13 @@ require('telescope').setup()
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>f', builtin.find_files)
 vim.keymap.set('n', '<leader>g', builtin.live_grep)
+-- Literal search variants (no regex magic)
+vim.keymap.set('n', '<leader>gp', function()
+  builtin.live_grep({ additional_args = {'--fixed-strings'} })
+end, { desc = 'Live grep (literal)' })
+vim.keymap.set('n', '<leader>gnm', function()
+  builtin.live_grep({ additional_args = {'--fixed-strings'} })
+end, { desc = 'Live grep (no magic)' })
 
  -- LSP setup
  local capabilities = require('cmp_nvim_lsp').default_capabilities()
