@@ -469,6 +469,8 @@ in
       re = "rebase";
       id = "rev-parse HEAD";
       br = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
+      # Smart pull: always uses current branch name
+      pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
     };
 
     extraConfig = {
@@ -514,6 +516,15 @@ in
 
       pull = {
         ff = "only";
+        # Auto-use current branch name when pulling from non-default remote
+        default = "current";
+      };
+
+      push = {
+        # Auto-setup upstream when pushing new branch
+        autoSetupRemote = true;
+        # Use current branch name by default
+        default = "current";
       };
 
       rebase = {
