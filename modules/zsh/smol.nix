@@ -53,10 +53,16 @@ with builtins;
       # Nix
       nib = "nix-build";
       nis = "nix search n";
-      # Ripgrep variants
-      rg = "ripgrep";           # original bleibt
-      rp = "ripgrep --fixed-strings";  # "ripgrep-plain"
-      rnm = "ripgrep --no-magic";      # "ripgrep-no-magic"
+      # Search tools: literal by default, regex variants available
+      rg = "ripgrep --fixed-strings";     # literal by default
+      rgr = "ripgrep";                    # explicit regex variant
+      fd = "fd --fixed-strings";          # literal by default  
+      fdr = "fd";                         # explicit regex variant
+      grep = "grep --fixed-strings";      # literal by default
+      grepr = "grep";                     # explicit regex variant
+      # Legacy aliases
+      rp = "ripgrep --fixed-strings";     # "ripgrep-plain"
+      rnm = "ripgrep --no-magic";         # "ripgrep-no-magic"
       # other
       b = "bat";
       br = "broot";
@@ -138,6 +144,11 @@ with builtins;
       L = "| less";
       NE = "2> /dev/null";
       NUL = "> /dev/null 2>&1";
+      
+      # Literal search variants (override defaults to disable regex)
+      RG = "| rg --fixed-strings";
+      FD = "| fd --fixed-strings";
+      GREP = "| grep --fixed-strings";
     };
 
     initContent = readFile ./init_content_smol.zsh;

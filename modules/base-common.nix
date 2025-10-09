@@ -452,7 +452,11 @@ in
       nix-direnv.enable = true;
     };
     eza.enable = true;
-    fzf.enable = true;
+    fzf = {
+      enable = true;
+      # Disable regex by default, use literal search
+      defaultOptions = [ "--literal" ];
+    };
     zoxide.enable = true;
   };
 
