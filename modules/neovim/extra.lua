@@ -8,6 +8,9 @@ vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.switchbuf = "usetab,newtab"  -- Jump to existing tab or create new one
 
+-- Disable regex magic in search - use literal search by default
+vim.opt.magic = false
+
 -- Leader key
 vim.g.mapleader = " "
 
