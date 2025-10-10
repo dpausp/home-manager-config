@@ -34,7 +34,7 @@ with builtins;
       gi = "git diff";
       gica = "git diff --cached";
       gitaww = "git diff -w --no-color | git apply --cached --ignore-whitespace"; # add changes, ignore whitespace
-      gl = "git pull";
+      gl = "git pull \$(git remote | head -1) \$(git branch --show-current)";
       gm = "git merge";
       gmn = "git merge --no-ff";
       go = "git log";
