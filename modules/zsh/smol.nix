@@ -54,15 +54,15 @@ with builtins;
       nib = "nix-build";
       nis = "nix search n";
       # Search tools: literal by default, regex variants available
-      rg = "ripgrep --fixed-strings";     # literal by default
-      rgr = "ripgrep";                    # explicit regex variant
+      rg = "rg --fixed-strings";          # literal by default
+      rgr = "rg";                         # explicit regex variant
       fd = "fd --fixed-strings";          # literal by default  
       fdr = "fd";                         # explicit regex variant
       grep = "grep --fixed-strings";      # literal by default
       grepr = "grep";                     # explicit regex variant
       # Legacy aliases
-      rp = "ripgrep --fixed-strings";     # "ripgrep-plain"
-      rnm = "ripgrep --no-magic";         # "ripgrep-no-magic"
+      rp = "rg --fixed-strings";          # "ripgrep-plain"
+      rnm = "rg --no-magic";              # "ripgrep-no-magic"
       # other
       b = "bat";
       br = "broot";
