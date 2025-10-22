@@ -520,6 +520,10 @@ in
         default = "current";
       };
 
+      advice = {
+        diverging = false;
+      };
+
       push = {
         # Auto-setup upstream when pushing new branch
         autoSetupRemote = true;
