@@ -461,19 +461,17 @@ in
   };
 
   programs.git = {
-    delta.enable = true;
     enable = true;
 
-    aliases = {
-      co = "checkout";
-      re = "rebase";
-      id = "rev-parse HEAD";
-      br = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
-      # Smart pull: always uses current branch name
-      pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
-    };
-
-    extraConfig = {
+    settings = {
+      alias = {
+        co = "checkout";
+        re = "rebase";
+        id = "rev-parse HEAD";
+        br = "for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'";
+        # Smart pull: always uses current branch name
+        pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
+      };
 
       color = {
         ui = true;
@@ -562,6 +560,11 @@ in
       "venv"
     ];
 
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
   };
 
   programs.htop.enable = true;

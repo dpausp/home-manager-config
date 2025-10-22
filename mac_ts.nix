@@ -48,7 +48,7 @@ with builtins;
     })
   ];
 
-  programs.git.extraConfig.safe.directory = "/Users/rovodev/*";
+  programs.git.settings.safe.directory = "/Users/rovodev/*";
 
   programs.topgrade = {
     enable = true;
