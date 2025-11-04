@@ -24,7 +24,7 @@ in
     gawk
     git
     git-lfs
-    gitAndTools.git-annex
+    git-annex
     jetbrains.pycharm-community
     kubectl
     nix-output-monitor

@@ -45,8 +45,8 @@ in
     geeqie
     gimp
     git
-    gitAndTools.git-annex
-    gitAndTools.qgit
+    git-annex
+    qgit
     gtk_engines
     img2pdf
     jetbrains.pycharm-community
