@@ -11,6 +11,7 @@ with builtins;
 let
   homedir = config.home.homeDirectory;
   unfreePackages = [ ];
+  opencode = pkgs.callPackage ../packages/opencode {};
 in
 {
   home.packages = with pkgs; [
@@ -28,6 +29,7 @@ in
     jetbrains.pycharm-community
     kubectl
     nix-output-monitor
+    opencode
     pandoc
     pgcli
     procps
