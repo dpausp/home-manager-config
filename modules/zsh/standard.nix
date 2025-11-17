@@ -54,6 +54,7 @@ with builtins;
       gos = "git log --pretty=format:'%H %as %s (%an)'";
       gp = "git push";
       gpb = "git-push-branch";
+      gpf = "git push --force-with-lease";
       grbc = "git rebase --continue";
       grbi = "git rebase -i";
       grv = "git remote -v";
