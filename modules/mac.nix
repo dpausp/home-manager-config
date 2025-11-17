@@ -29,7 +29,7 @@ in
     jetbrains.pycharm-community
     kubectl
     nix-output-monitor
-    opencode
+    #opencode
     pandoc
     pgcli
     procps
