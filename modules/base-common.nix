@@ -483,7 +483,7 @@ in
       };
 
       delta = {
-        features = "side-by-side line-numbers decorations";
+        features = "line-numbers";
         navigate = true;
       };
 
